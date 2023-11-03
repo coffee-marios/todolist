@@ -145,7 +145,7 @@ summary {
 
 body {
     display: block;
-    margin: 8px;
+    margin: 0
 }
 
 p,
@@ -1028,6 +1028,48 @@ slot {
 body {
     background-color: bisque;
 }
+
+.headerPage {
+    background-color: rgba(45, 41, 41, 0.107);
+    height: 3rem;
+    font-size: 2rem;
+    padding: 0.8rem 0;
+    text-align: center;
+
+}
+
+
+.container {
+    padding: 0;
+    height: 633px;
+    background-color: blue;
+}
+
+/* 
+.container::after {
+    content: "";
+    display: table;
+    clear: both;
+} */
+
+
+.leftSection {
+    width: 30%;
+    height: 2rem;
+    background-color: brown;
+    display: inline-block;
+}
+
+.rightSection {
+    width: 70%;
+    height: 2rem;
+    float: right;
+
+    background-color: blueviolet;
+}
+
+
+
 
 .hello {
     color: red;

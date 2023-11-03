@@ -2,19 +2,31 @@ import _ from "lodash";
 import "./style.css";
 import printMe from "./print.js";
 
-function component() {
-  const element = document.createElement("div");
-  const btn = document.createElement("button");
+function myHeader() {
+  const element = document.createElement("header");
+  //const btn = document.createElement("button");
 
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(["Hello", "webpack"], " ");
-  element.classList.add("hello");
-  btn.innerHTML = "Click me and check the console!";
-  btn.onclick = printMe;
-
-  element.appendChild(btn);
+  element.classList.add("headerPage");
+  element.innerHTML = "TO DO LIST";
+  //btn.onclick = printMe;
+  //element.appendChild(btn);
 
   return element;
 }
 
-document.body.appendChild(component());
+function container() {
+  const contain = document.createElement("div");
+  contain.classList.add("container");
+
+  const leftSide = document.createElement("div");
+  leftSide.classList.add("leftSection");
+  const rightSide = document.createElement("div");
+  rightSide.classList.add("rightSection");
+
+  contain.appendChild(leftSide);
+  contain.appendChild(rightSide);
+  return contain;
+}
+
+document.body.appendChild(myHeader());
+document.body.appendChild(container());
