@@ -5,7 +5,8 @@ module.exports = {
   mode: "development",
   entry: {
     index: "./src/index.js",
-    print: "./src/print.js",
+
+    taskContainer: "./src/taskContainer.js",
   },
   devtool: "inline-source-map",
   plugins: [

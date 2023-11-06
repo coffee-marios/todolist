@@ -1,115 +1,3 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-@namespace url(http://www.w3.org/1999/xhtml);
-/* set default namespace to HTML */
-@namespace xul url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
-
-@font-face {
-    font-family: -moz-bullet-font;
-    src: url("data:font/woff2;base64,d09GMgABAAAAAARYAAwAAAAACqAAAAQFAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cBmAAgwIRCAqKDIcYATYCJAMsCxgABCAFg2AHIBtDCFGUrM0MyM/DGJyndUclpZwnU8QPQ6wsFOHO+/yHNvV9IEqSQgsVJW2p+uZkohKbVExPEz/JUW7zk6rzYH9723UJ/4DzBII8CSzwgFMOOE4KW2rjAmh4qQWSiid60f7Y9FsXScfUpeluagFqTTQYyoQaQSubXil0lHRsBehAI9KofG/6ogF9/Hl6lBd920LmeTxj8JXBfFWKwYAY3QsAAXD17ZAB4M6Ocv/nsZlkaTl0gLipewIQEMB2d9lKDAT1ZjP/F7jmWsQ3wn8AZvZFgIIC7ESh4AP1iFb4nPnfWyJgcQArpUWqW9W96j71kHr/L9a/dNRbj+8/ujXLWCMMFYVYiXoEaZQ4YOC/E7Dkz3JEjaokxAP6i3hIUjv9fwYyE6I3yIozKkaGN63fP36aeLJmxlRZwZiFziPrMVvOlnCF98SQJfGO/Xllv/FnWAcEjrMqaMCPwVmktCDO5zzxcXqeKS+QFxYnvJLFVzKZAFcKnlZRwHEPVM3mXxNt2gdZEpkKaIAG9gbgDTU5SOYDcmX7Rr61evEA1U+1/3SMb6FFtUqh55nYleE95j2zPNxzdlnGoR5xu/PxQKzb7bFaFLvl79Z54Lx9OH+g0/PPYlcsNo/nwP2V2vsHUHsV4KqEsd+e2r6Fu2v7abkfvsb65b41uwvRvqewH25kTntqolbYsEr5DAqrX97a0jrBLjFRExVHR2dH1Za6unyZfCVZHqQP0BtYjuUYlg9J6SurcrTEiOr26m5xcuTW4Sp3ljkUYWJ9+/iVmzbzPpcuXnGeqU3U7IKjz/qeKSSCltyhuSoxkqqTZX+DXt/OMmAikC8SzVD0jg3dbhIE0eUqc04UFFrxCSXzFxgHclzRMPe0ocOjiKRoSZISE0OtpkBjECdxkkRM1KiaJV0ed0V5umBP1wyUPL2ZBGLSDh5itIHahHRF0CY5nZMGib6T3cOmDvcTSZKuPiFJFpPRGNTIOq7jl5OjDiGIoo6qEE0QtfQJ3VYUD2RZvbm5uWWCWOgR4HXAk5GxLEO0izhLdvPTfpTV3xeOnOfT96uR53CdPrPq+P9HZvzO4QCMmDr7lTcNZorT6iMOYgI+IxClMzeCspeoLt5ABGSpta6gRZmQSnzk9e9jmOAYKC7RsyGMYaB6MpbNKMiRq2U6vI0yPZuTMiODFytMrGEBi7pjGgkAMoaNLGOFSoYceaZMx1+XTC/UNpmRzY1nmwT7AIcK+fK5lYNjz893lwMTuXlD2AKl8Md+24AxitRaLH/MUMqd9z862owy/bZTuZUqs1iRQop0KdLgZwPc9JS0lprnkef1gitBCRhjgV+vjGK8BfIV8CrlVghj1vIyZfyC/AJvqbsQYAEA/v+IAQA=");
-}
-
-/* bidi */
-
-:-moz-has-dir-attr {
-    unicode-bidi: isolate;
-}
-
-:-moz-dir-attr-rtl {
-    direction: rtl;
-}
-
-:-moz-dir-attr-ltr {
-    direction: ltr;
-}
-
-:-moz-dir-attr-like-auto:dir(ltr) {
-    direction: ltr;
-}
-
-:-moz-dir-attr-like-auto:dir(rtl) {
-    direction: rtl;
-}
-
-/* https://html.spec.whatwg.org/#bidi-rendering */
-input[type=tel]:dir(ltr) {
-    direction: ltr;
-}
-
-/* To ensure http://www.w3.org/TR/REC-html40/struct/dirlang.html#style-bidi:
-  *
-  * "When a block element that does not have a dir attribute is transformed to
-  * the style of an inline element by a style sheet, the resulting presentation
-  * should be equivalent, in terms of bidirectional formatting, to the
-  * formatting obtained by explicitly adding a dir attribute (assigned the
-  * inherited value) to the transformed element."
-  *
-  * and the rules in http://dev.w3.org/html5/spec/rendering.html#rendering
-  */
-
-address,
-article,
-aside,
-blockquote,
-body,
-caption,
-center,
-col,
-colgroup,
-dd,
-dir,
-div,
-dl,
-dt,
-fieldset,
-figcaption,
-figure,
-footer,
-form,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-header,
-hgroup,
-hr,
-html,
-legend,
-li,
-listing,
-main,
-marquee,
-menu,
-nav,
-noframes,
-ol,
-p,
-plaintext,
-pre,
-search,
-section,
-summary,
-table,
-tbody,
-td,
-tfoot,
-th,
-thead,
-tr,
-ul,
-xmp {
-    unicode-bidi: isolate;
-}
-
-bdi,
-output {
-    unicode-bidi: isolate;
-}
-
 /* We need the "bdo:-moz-has-dir-attr" bit because "bdo" has lower
     specificity than the ":-moz-has-dir-attr" selector above. */
 bdo,
@@ -1027,6 +915,8 @@ slot {
 
 body {
     background-color: bisque;
+
+
 }
 
 .headerPage {
@@ -1055,22 +945,72 @@ body {
 
 .leftSection {
     width: 30%;
-    height: 2rem;
+    min-height: 80%;
     background-color: brown;
     display: inline-block;
 }
 
 .rightSection {
     width: 70%;
-    height: 2rem;
+
     float: right;
 
     background-color: blueviolet;
 }
 
 
+.projects {
+    margin: 5rem auto;
+    width: 60%;
+    text-align: center;
+    background-color: darksalmon;
+    padding: 5px 0 15px 0;
+}
+
+.tasks {
+    margin: 5rem auto;
+    width: 70%;
+    text-align: center;
+    background-color: darksalmon;
+    padding: 5px 0 15px 0;
+}
+
+.tasksUnit {
+    background-color: azure;
+}
 
 
-.hello {
-    color: red;
+button {
+    margin: 5px;
+    padding: 5px;
+
+}
+
+.addProject {
+    margin-top: 3rem;
+    background-color: rgb(202, 251, 254);
+    color: green;
+}
+
+.taskContainer {
+    display: flex;
+    clear: right;
+    flex-direction: column;
+    background-color: cadetblue;
+    padding: 5px;
+    justify-content: space-between;
+
+}
+
+.taskContainer>div {
+    margin: 5px;
+
+}
+
+span {
+    margin: 0 5px;
+}
+
+.addTask {
+    float: right;
 }
