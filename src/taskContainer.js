@@ -1,3 +1,5 @@
+import { addProjectFunction, addProjectForm } from "./projects.js";
+
 export default function container() {
   const contain = document.createElement("div");
   contain.classList.add("container");
@@ -7,6 +9,8 @@ export default function container() {
 
   const myProjects = document.createElement("div");
   myProjects.classList.add("projects");
+
+  myProjects.appendChild(addProjectForm());
 
   const myProjectsTitle = document.createElement("p");
   myProjectsTitle.innerText = "PROJECTS";
@@ -18,8 +22,9 @@ export default function container() {
   secondProject.innerText = "Update my website";
 
   const addProject = document.createElement("button");
-  addProject.classList.add("addProject");
-  addProject.innerText = "Add a project";
+  addProject.setAttribute("id", "startProjectButton");
+  addProject.innerText = "+";
+  addProject.addEventListener("click", addProjectFunction);
 
   leftSide.appendChild(myProjects);
   myProjects.appendChild(myProjectsTitle);

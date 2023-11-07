@@ -965,6 +965,21 @@ body {
     text-align: center;
     background-color: darksalmon;
     padding: 5px 0 15px 0;
+    position: relative;
+}
+
+#buttonProjectForm {
+    display: block;
+    margin: 18px;
+}
+
+#labelProject {
+    margin: 5px;
+}
+
+#inputProject {
+    width: 80%;
+    margin: 10px 0 5px 0;
 }
 
 .tasks {
@@ -986,10 +1001,32 @@ button {
 
 }
 
-.addProject {
-    margin-top: 3rem;
+#startProjectButton {
+    display: block;
+}
+
+
+
+#addProjectDiv {
+
+    padding: 5px;
+    background-color: blue;
+    display: none;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+}
+
+#addProjectForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(202, 251, 254);
     color: green;
+    text-align: center;
+    margin: 8px;
+    min-width: 400px;
 }
 
 .taskContainer {
@@ -1001,6 +1038,9 @@ button {
     justify-content: space-between;
 
 }
+
+
+
 
 .taskContainer>div {
     margin: 5px;
