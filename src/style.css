@@ -944,14 +944,14 @@ body {
 
 
 .leftSection {
-    width: 30%;
+    width: 35%;
     min-height: 80%;
     background-color: brown;
     display: inline-block;
 }
 
 .rightSection {
-    width: 70%;
+    width: 65%;
 
     float: right;
 
@@ -995,9 +995,10 @@ body {
 }
 
 
-button {
-    margin: 5px;
-    padding: 5px;
+.buttonProjects {
+    display: block;
+    margin: 8px auto;
+    padding: 8px;
 
 }
 
@@ -1029,7 +1030,7 @@ button {
     min-width: 400px;
 }
 
-.taskContainer {
+.taskContainerFirst {
     display: flex;
     clear: right;
     flex-direction: column;
@@ -1042,7 +1043,7 @@ button {
 
 
 
-.taskContainer>div {
+.taskContainerFirst>div {
     margin: 5px;
 
 }
