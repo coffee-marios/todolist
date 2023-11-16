@@ -1,7 +1,9 @@
 // Manipulate projects
 
 import { taskContainer } from "./taskContainer.js";
+import { elementProject } from "./projectsDom.js";
 
+// Sample projects
 const projects = {
   project1: {
     name: "Title1",
@@ -13,25 +15,56 @@ const projects = {
   },
 };
 
-function showTasks(project) {
-  let myContainer = document.getElementById("taskContainerId");
-  taskContainer(project);
-  console.log("Function: showTask");
-  console.log(myContainer);
-  console.log(99, project["taskList"]);
+// All the projects names
+const myProjects = [];
+
+const myProjectMethods = {
+  getProject: function () {
+    return this;
+  },
+  getProjectName: function () {
+    return this.name;
+  },
+  getTaskList: function () {
+    return this.taskList;
+  },
+  addTask: function (id, newTask) {
+    this.taskList[id] = newTask;
+  },
+};
+
+// function giveProject(name) {
+//   return name.getProject();
+// }
+
+function myProjectComposition(name, taskList = {}) {
+  return { name, taskList, ...projects, ...myProjectMethods };
+}
+
+function showTasks(projectL) {
+  const myContainer = document.getElementById("taskContainerId");
+
   myContainer.replaceChildren();
 
+  //let myTasks = projectL;
+
+  console.log(projectL);
+  //const myTasks = Object.values(projectL);
+  const myProtoTasks = projectL.getTaskList();
+  const myTasks = Object.values(myProtoTasks);
+  console.log("myTasks, ", myTasks);
+
   let i = 0;
-  for (const property of project["taskList"]) {
+  for (const property of myTasks) {
     i += 1;
-    let keyTask = "task" + i;
-    console.log(property[keyTask]);
+    // let keyTask = "task" + i;
+    console.log("property: ", property);
     const newTask = document.createElement("div");
     newTask.classList.add("tasksUnit");
 
     // New title
     const newTitle = document.createElement("p");
-    newTitle.textContent = property[keyTask];
+    newTitle.textContent = property;
 
     // New extras
     const newExtras = document.createElement("div");
@@ -72,8 +105,9 @@ function clickAddProject(event) {
   if (newTitle !== "") {
     let getId = assignProjectId();
     let keyProject = getId + "project";
+    const newProject = myProjectComposition(keyProject);
     projects[keyProject] = { name: newTitle, taskList: [] };
-    appendProject(newTitle, keyProject);
+    appendProject(newTitle, newProject);
   }
 
   console.log("projects", projects);
@@ -119,23 +153,17 @@ const createNewProjectId = () => {
 const assignProjectId = createNewProjectId();
 
 function appendProject(newProject, keyProject) {
-  // The page has to be loaded before accessing elements added from modules
-  //document.addEventListener("DOMContentLoaded", () => {
   const listPro = document.getElementById("listProjects");
-  let titleProject = document.createElement("button");
-
-  titleProject.classList.add("buttonProjects");
-  titleProject.setAttribute("id", keyProject); // do i need it?
-  titleProject.textContent = newProject;
-  titleProject.addEventListener("click", () => {
-    showTasks(projects[keyProject]);
-  });
-  //titleProject.removeEventListener("click", showTasks);
-  //document.removeEventListener("click", clickAddProject);
+  const titleProject = elementProject(newProject, keyProject);
   listPro.appendChild(titleProject);
   console.log("listPro", listPro);
-  //});
-  //document.removeEventListener("DOMContentLoaded", appendProject);
 }
 
-export { addProjectFunction, addProjectForm, showTasks, projects };
+export {
+  addProjectFunction,
+  addProjectForm,
+  showTasks,
+  projects,
+  myProjectComposition,
+  myProjects,
+};
