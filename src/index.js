@@ -1,8 +1,14 @@
 import _ from "lodash";
 import "./style.css";
 import { renderProjects, elementProject } from "./projectsDom.js";
-import { showTasks, myProjectComposition, myProjects } from "./projects.js";
-import { clickAddTask } from "./taskContainer.js";
+import {
+  showTasks,
+  myProjectComposition,
+  myProjects,
+  setActiveProject,
+  activeProject,
+} from "./projects.js";
+import { clickAddTask, addTaskForm } from "./taskContainer.js";
 
 // Create the sample projects that will add at the end
 const sampleProjectOne = myProjectComposition("project1");
@@ -15,6 +21,8 @@ sampleProjectOne.addTask("task1", "Read a 90 book");
 sampleProjectOne.addTask("task2", "Read An Empty 0 House");
 
 // console.log("first sample object", sampleProjectOne.getTaskList());
+setActiveProject(sampleProjectOne);
+console.log("Active project: ", activeProject);
 
 const sampleProjectTwo = myProjectComposition("project2");
 const nameProjectSampleTwo = sampleProjectTwo.getProjectName();
@@ -74,20 +82,21 @@ addTask.innerText = "+";
 
 addTask.setAttribute("id", "addStartTaskButton");
 addTask.innerText = "+";
-//addTask.addEventListener("click", addTaskFunction);
-//document.removeEventListener("click", addTaskFunction);
+addTask.addEventListener("click", () => {
+  clickAddTask();
+});
+document.removeEventListener("click", clickAddTask);
 
 rightSide.appendChild(myTasks);
 myTasks.appendChild(myTasksTitle);
 myTasks.appendChild(addTask);
+myTasks.appendChild(addTaskForm());
 
 // Child task element (task container)
 const homeTaskContainer = document.createElement("div");
 homeTaskContainer.classList.add("taskContainerFirst");
 homeTaskContainer.setAttribute("id", "taskContainerId");
-homeTaskContainer.addEventListener("click", () => {
-  clickAddTask(projects[keyProject]);
-});
+
 myTasks.appendChild(homeTaskContainer);
 
 // Sum it up
@@ -105,5 +114,8 @@ let show1 = sampleProjectOne.getTaskList();
 let taskP = Object.values(show1);
 console.log("index-tasks ", taskP);
 
-//showTasks(taskP);
 showTasks(sampleProjectOne);
+
+addTask.addEventListener("click", () => {
+  clickAddTask(activeProject);
+});

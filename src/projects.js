@@ -3,6 +3,12 @@
 import { taskContainer } from "./taskContainer.js";
 import { elementProject } from "./projectsDom.js";
 
+let activeProject;
+
+function setActiveProject(setProject) {
+  activeProject = setProject;
+}
+
 // Sample projects
 const projects = {
   project1: {
@@ -42,14 +48,15 @@ function myProjectComposition(name, taskList = {}) {
 }
 
 function showTasks(projectL) {
+  console.clear();
+  setActiveProject(projectL);
+  console.log("Active project: ", projectL);
   const myContainer = document.getElementById("taskContainerId");
 
   myContainer.replaceChildren();
 
-  //let myTasks = projectL;
-
   console.log(projectL);
-  //const myTasks = Object.values(projectL);
+
   const myProtoTasks = projectL.getTaskList();
   const myTasks = Object.values(myProtoTasks);
   console.log("myTasks, ", myTasks);
@@ -57,7 +64,7 @@ function showTasks(projectL) {
   let i = 0;
   for (const property of myTasks) {
     i += 1;
-    // let keyTask = "task" + i;
+
     console.log("property: ", property);
     const newTask = document.createElement("div");
     newTask.classList.add("tasksUnit");
@@ -153,6 +160,9 @@ const createNewProjectId = () => {
 const assignProjectId = createNewProjectId();
 
 function appendProject(newProject, keyProject) {
+  console.clear();
+  setActiveProject(keyProject);
+  console.log("Active project: ", keyProject);
   const listPro = document.getElementById("listProjects");
   const titleProject = elementProject(newProject, keyProject);
   listPro.appendChild(titleProject);
@@ -166,4 +176,6 @@ export {
   projects,
   myProjectComposition,
   myProjects,
+  activeProject,
+  setActiveProject,
 };
