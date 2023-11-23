@@ -17,15 +17,16 @@ console.log("index sample object", sampleProjectOne);
 const nameProjectSampleOne = sampleProjectOne.getProjectName();
 
 myProjects.push(sampleProjectOne.getProjectName());
-sampleProjectOne.addTask("task1", "Read a 90 book");
+sampleProjectOne.addTask("task1", "Read a 90 book", "33", "low", "ss");
 sampleProjectOne.addTask("task2", "Read An Empty 0 House");
 
-// console.log("first sample object", sampleProjectOne.getTaskList());
+console.log("first sample object", sampleProjectOne);
 setActiveProject(sampleProjectOne);
 console.log("Active project: ", activeProject);
 
 const sampleProjectTwo = myProjectComposition("project2");
 const nameProjectSampleTwo = sampleProjectTwo.getProjectName();
+sampleProjectTwo.addTask("task1", "Read ", "3d3", "high", "sas");
 myProjects.push(sampleProjectTwo.getProjectName());
 console.log(myProjects);
 

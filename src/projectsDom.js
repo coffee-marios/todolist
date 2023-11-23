@@ -12,6 +12,52 @@ function elementProject(nameProjectDom, keyProject) {
   return newProject;
 }
 
+function domShowTasks(myTasks) {
+  const myContainer = document.getElementById("taskContainerId");
+
+  myContainer.replaceChildren();
+
+  console.log("myTasks, ", myTasks);
+
+  for (const property of myTasks) {
+    console.log("property: ", property);
+    const newTask = document.createElement("div");
+    newTask.classList.add("tasksUnit");
+
+    // New title
+    const newTitle = document.createElement("p");
+    newTitle.textContent = property.name;
+
+    // New extras
+    const newExtras = document.createElement("div");
+
+    // New date
+    const newDueDate = document.createElement("span");
+    newDueDate.textContent = property.date;
+    newExtras.appendChild(newDueDate);
+
+    // New priority
+    const newPriority = document.createElement("span");
+    newPriority.textContent = `PRIORITY: ${property.priority}`;
+    newExtras.appendChild(newPriority);
+
+    // New notes
+    const newNotes = document.createElement("button");
+    newNotes.textContent = "Notes";
+    newExtras.appendChild(newNotes);
+
+    // New edit
+    const newEdit = document.createElement("button");
+    newEdit.textContent = "*";
+    newExtras.appendChild(newEdit);
+
+    myContainer.appendChild(newTask);
+    newTask.appendChild(newTitle);
+    newTask.appendChild(newExtras);
+    myContainer.appendChild(newTask);
+  }
+}
+
 function renderProjects() {
   const myProjects = document.createElement("div");
   myProjects.classList.add("projects");
@@ -31,11 +77,11 @@ function renderProjects() {
   addProject.setAttribute("id", "startProjectButton");
   addProject.innerText = "+";
   addProject.addEventListener("click", addProjectFunction);
-  document.removeEventListener("click", addProjectFunction);
+  // document.removeEventListener("click", addProjectFunction);
 
   myProjects.appendChild(addProject);
 
   return myProjects;
 }
 
-export { renderProjects, elementProject };
+export { renderProjects, elementProject, domShowTasks };

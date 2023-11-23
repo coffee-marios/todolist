@@ -1,7 +1,6 @@
 // Manipulate projects
 
-import { taskContainer } from "./taskContainer.js";
-import { elementProject } from "./projectsDom.js";
+import { elementProject, domShowTasks } from "./projectsDom.js";
 
 let activeProject;
 
@@ -13,7 +12,16 @@ function setActiveProject(setProject) {
 const projects = {
   project1: {
     name: "Title1",
-    taskList: [{ task1: "Read a book" }, { task2: "Read An Empty House" }],
+    taskList: [
+      { task0: { name: "Read a book", dueDate: "dd/mm/yy", priority: "low" } },
+      {
+        task1: {
+          name: "Read An Empty House",
+          dueDate: "dd/mm/yy",
+          priority: "low",
+        },
+      },
+    ],
   },
   project2: {
     name: "Title2",
@@ -34,73 +42,44 @@ const myProjectMethods = {
   getTaskList: function () {
     return this.taskList;
   },
-  addTask: function (id, newTask) {
-    this.taskList[id] = newTask;
+  addTask: function (
+    name,
+    newTask,
+    date = "dd/mm/yy",
+    priority = "low",
+    notes = ""
+  ) {
+    this.taskId = assignTaskId();
+    let internalTask = {};
+
+    internalTask["name"] = newTask;
+    internalTask["date"] = date;
+    internalTask["priority"] = priority;
+    internalTask["notes"] = notes;
+
+    this.taskList[this.taskId] = internalTask;
   },
 };
 
-// function giveProject(name) {
-//   return name.getProject();
-// }
-
 function myProjectComposition(name, taskList = {}) {
-  return { name, taskList, ...projects, ...myProjectMethods };
+  return { name, taskList, ...myProjectMethods };
 }
 
 function showTasks(projectL) {
   console.clear();
   setActiveProject(projectL);
-  console.log("Active project: ", projectL);
-  const myContainer = document.getElementById("taskContainerId");
+  console.log("Active project: ", projectL.getProjectName());
 
-  myContainer.replaceChildren();
-
-  console.log(projectL);
-
-  const myProtoTasks = projectL.getTaskList();
+  console.log("project: ", projectL);
+  let myProtoTasks = null;
+  myProtoTasks = projectL.getTaskList();
   const myTasks = Object.values(myProtoTasks);
+
   console.log("myTasks, ", myTasks);
+  console.log(myProtoTasks);
 
-  let i = 0;
-  for (const property of myTasks) {
-    i += 1;
-
-    console.log("property: ", property);
-    const newTask = document.createElement("div");
-    newTask.classList.add("tasksUnit");
-
-    // New title
-    const newTitle = document.createElement("p");
-    newTitle.textContent = property;
-
-    // New extras
-    const newExtras = document.createElement("div");
-
-    // New date
-    const newDueDate = document.createElement("span");
-    newDueDate.textContent = "dd/mm/yy";
-    newExtras.appendChild(newDueDate);
-
-    // New priority
-    const newPriority = document.createElement("span");
-    newPriority.textContent = "priority: high";
-    newExtras.appendChild(newPriority);
-
-    // New notes
-    const newNotes = document.createElement("button");
-    newNotes.textContent = "Notes";
-    newExtras.appendChild(newNotes);
-
-    // New edit
-    const newEdit = document.createElement("button");
-    newEdit.textContent = "*";
-    newExtras.appendChild(newEdit);
-
-    myContainer.appendChild(newTask);
-    newTask.appendChild(newTitle);
-    newTask.appendChild(newExtras);
-    myContainer.appendChild(newTask);
-  }
+  console.log(Array.isArray(myTasks), myTasks.length);
+  domShowTasks(myTasks);
 }
 
 function clickAddProject(event) {
@@ -149,7 +128,7 @@ function addProjectFunction() {
   document.getElementById("addProjectDiv").style.display = "block";
 }
 
-const createNewProjectId = () => {
+const createNewId = () => {
   let idProject = 0;
   return () => {
     idProject++;
@@ -157,7 +136,8 @@ const createNewProjectId = () => {
   };
 };
 
-const assignProjectId = createNewProjectId();
+const assignProjectId = createNewId();
+const assignTaskId = createNewId();
 
 function appendProject(newProject, keyProject) {
   console.clear();
