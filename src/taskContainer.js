@@ -18,6 +18,64 @@ function clickAddTask() {
   console.log("Active project: ", activeProject);
 }
 
+function clickFormInput() {
+  event.preventDefault();
+  document.getElementById("addTaskDiv").style.display = "none";
+  const myFormTask = document.getElementById("addTaskForm");
+  const newTask = myFormTask["name"].value;
+  const newDate = myFormTask["date"].value;
+  let newImportance = myFormTask["priority"].value;
+  const newNotes = myFormTask["textAreaTask"].value;
+
+  console.clear();
+  console.log(newTask, newDate, newImportance, newNotes);
+  const taskSet = [
+    { name: newTask, date: newDate, priority: newImportance, notes: newNotes },
+  ];
+  appendNewTask(taskSet);
+}
+
+function appendNewTask(newTask) {
+  const myContainer = document.getElementById("taskContainerId");
+  for (const property of newTask) {
+    console.log("property: ", property);
+    const newTask = document.createElement("div");
+    newTask.classList.add("tasksUnit");
+
+    // New title
+    const newTitle = document.createElement("p");
+    newTitle.textContent = property.name;
+
+    // New extras
+    const newExtras = document.createElement("div");
+
+    // New date
+    const newDueDate = document.createElement("span");
+    newDueDate.textContent = property.date;
+    newExtras.appendChild(newDueDate);
+
+    // New priority
+    const newPriority = document.createElement("span");
+    newPriority.textContent = `PRIORITY: ${property.priority}`;
+    newExtras.appendChild(newPriority);
+
+    // New notes
+    const newNotes = document.createElement("button");
+    newNotes.textContent = "Notes";
+    newExtras.appendChild(newNotes);
+
+    // New edit
+    const newEdit = document.createElement("button");
+    newEdit.textContent = "*";
+    newExtras.appendChild(newEdit);
+
+    myContainer.appendChild(newTask);
+    newTask.appendChild(newTitle);
+    newTask.appendChild(newExtras);
+    myContainer.appendChild(newTask);
+  }
+}
+
 function addTaskForm() {
   const addElementContainer = document.createElement("div");
   addElementContainer.setAttribute("id", "addTaskDiv");
@@ -72,6 +130,7 @@ function addTaskForm() {
   const inputPriorityHigh = document.createElement("input");
   inputPriorityHigh.setAttribute("class", "inputPriority");
   inputPriorityHigh.setAttribute("id", "highPriority");
+  inputPriorityHigh.setAttribute("value", "high");
 
   inputPriorityHigh.type = "radio";
   inputPriorityHigh.name = "priority";
@@ -85,6 +144,7 @@ function addTaskForm() {
   const inputPriorityMedium = document.createElement("input");
   inputPriorityMedium.setAttribute("class", "inputPriority");
   inputPriorityMedium.setAttribute("id", "mediumPriority");
+  inputPriorityMedium.setAttribute("value", "medium");
 
   inputPriorityMedium.type = "radio";
   inputPriorityMedium.name = "priority";
@@ -98,6 +158,7 @@ function addTaskForm() {
   const inputPriorityLow = document.createElement("input");
   inputPriorityLow.setAttribute("class", "inputPriority");
   inputPriorityLow.setAttribute("id", "lowPriority");
+  inputPriorityLow.setAttribute("value", "low");
 
   inputPriorityLow.type = "radio";
   inputPriorityLow.name = "priority";
@@ -135,10 +196,11 @@ function addTaskForm() {
   notesElement.appendChild(taskTextArea);
   taskForm.appendChild(notesElement);
 
+  // Button
   const addButton = document.createElement("button");
   addButton.setAttribute("id", "buttonTaskForm");
   addButton.textContent = "ADD";
-  addButton.addEventListener("click", clickAddTask, false);
+  addButton.addEventListener("click", clickFormInput, false);
 
   taskForm.appendChild(addButton);
   return addElementContainer;
