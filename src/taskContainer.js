@@ -1,4 +1,6 @@
-import { activeProject } from "./projects.js";
+import { activeProject, createNewId } from "./projects.js";
+
+const nameTaskId = createNewId();
 
 // Task container
 
@@ -28,16 +30,22 @@ function clickFormInput() {
   const newNotes = myFormTask["textAreaTask"].value;
 
   console.clear();
-  console.log(newTask, newDate, newImportance, newNotes);
+
+  console.log("Active project: ", activeProject);
   const taskSet = [
     { name: newTask, date: newDate, priority: newImportance, notes: newNotes },
   ];
   appendNewTask(taskSet);
+
+  const nameId = nameTaskId() + "task";
+
+  activeProject.addTask(nameId, newTask, newDate, newImportance, newNotes);
 }
 
-function appendNewTask(newTask) {
+function appendNewTask(taskSet) {
+  console.log("Task properties: ", taskSet);
   const myContainer = document.getElementById("taskContainerId");
-  for (const property of newTask) {
+  for (const property of taskSet) {
     console.log("property: ", property);
     const newTask = document.createElement("div");
     newTask.classList.add("tasksUnit");
