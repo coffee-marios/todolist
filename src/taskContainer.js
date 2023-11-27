@@ -68,18 +68,25 @@ function appendNewTask(taskSet) {
     newExtras.appendChild(newPriority);
 
     // New notes
-    const newNotes = document.createElement("button");
-    newNotes.textContent = "Notes";
-    newExtras.appendChild(newNotes);
+    const newNotesElement = document.createElement("button");
+
+    newNotesElement.textContent = "Notes";
+    newExtras.appendChild(newNotesElement);
+    const newNotesText = document.createElement("pre");
+    newNotesText.classList.add("notesPre");
+    newNotesText.textContent = property.notes;
 
     // New edit
     const newEdit = document.createElement("button");
     newEdit.textContent = "*";
     newExtras.appendChild(newEdit);
 
+    //newNotesText.classList.add("tooltiptext");
+
     myContainer.appendChild(newTask);
     newTask.appendChild(newTitle);
     newTask.appendChild(newExtras);
+    newExtras.appendChild(newNotesText);
     myContainer.appendChild(newTask);
   }
 }
