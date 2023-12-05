@@ -1,6 +1,23 @@
 import { activeProject, createNewId } from "./projects.js";
+import { editTaskForm } from "./forms.js";
 
 const nameTaskId = createNewId();
+
+function clickEditTask(event) {
+  // runs when the task is chosen
+  console.log("Editt", event);
+  const editTaskDiv = document.getElementById("editTaskDiv");
+  const [{ name, date, priority, notes }] = event;
+  console.log("prp", name, date, priority, notes);
+
+  const valueTask = document.getElementById("newTask");
+  //valueTask.setAttribute("value", name);
+  valueTask.value = name;
+  console.log("value:", valueTask.value);
+
+  editTaskDiv.style.display = "block";
+  console.log("after:", editTaskDiv);
+}
 
 // Task container
 
@@ -20,7 +37,21 @@ function clickAddTask() {
   console.log("Active project: ", activeProject);
 }
 
-function clickFormInput() {
+function formAddTaskMethod(taskSet) {
+  // Adds the task to the project
+
+  const taskData = getFormDataTask(taskSet);
+  appendNewTask(taskData);
+
+  const nameId = nameTaskId() + "task";
+
+  const [{ name, date, priority, notes }] = taskData;
+
+  activeProject.addTask(nameId, name, date, priority, notes);
+  console.log(activeProject);
+}
+
+function getFormDataTask() {
   event.preventDefault();
   document.getElementById("addTaskDiv").style.display = "none";
   const myFormTask = document.getElementById("addTaskForm");
@@ -35,11 +66,8 @@ function clickFormInput() {
   const taskSet = [
     { name: newTask, date: newDate, priority: newImportance, notes: newNotes },
   ];
-  appendNewTask(taskSet);
 
-  const nameId = nameTaskId() + "task";
-
-  activeProject.addTask(nameId, newTask, newDate, newImportance, newNotes);
+  return taskSet;
 }
 
 function appendNewTask(taskSet) {
@@ -47,12 +75,13 @@ function appendNewTask(taskSet) {
   const myContainer = document.getElementById("taskContainerId");
   for (const property of taskSet) {
     console.log("property: ", property);
-    const newTask = document.createElement("div");
-    newTask.classList.add("tasksUnit");
+    const newTaskDom = document.createElement("div");
+    newTaskDom.classList.add("tasksUnit");
 
     // New title
     const newTitle = document.createElement("p");
-    newTitle.textContent = property.name;
+    const nameTitleTask = property.name;
+    newTitle.textContent = nameTitleTask;
 
     // New extras
     const newExtras = document.createElement("div");
@@ -78,25 +107,30 @@ function appendNewTask(taskSet) {
 
     // New edit
     const newEdit = document.createElement("button");
-    newEdit.textContent = "*";
+    newEdit.textContent = "**";
     newExtras.appendChild(newEdit);
+    newEdit.addEventListener(
+      "click",
+      () => {
+        clickEditTask(taskSet);
+      },
+      false
+    );
 
-    //newNotesText.classList.add("tooltiptext");
-
-    myContainer.appendChild(newTask);
-    newTask.appendChild(newTitle);
-    newTask.appendChild(newExtras);
+    myContainer.appendChild(newTaskDom);
+    newTaskDom.appendChild(newTitle);
+    newTaskDom.appendChild(newExtras);
     newExtras.appendChild(newNotesText);
-    myContainer.appendChild(newTask);
+    myContainer.appendChild(newTaskDom);
   }
 }
 
 function addTaskForm() {
   const addElementContainer = document.createElement("div");
   addElementContainer.setAttribute("id", "addTaskDiv");
+
   const taskForm = document.createElement("form");
   taskForm.setAttribute("id", "addTaskForm");
-  addElementContainer.appendChild(taskForm);
 
   // Name the Task
   const elementNameTask = document.createElement("div");
@@ -106,6 +140,7 @@ function addTaskForm() {
 
   const nameTask = document.createElement("input");
   nameTask.setAttribute("id", "newTask");
+  nameTask.value = "Name the task";
   nameTask.type = "text";
   nameTask.name = "name";
 
@@ -211,14 +246,16 @@ function addTaskForm() {
   notesElement.appendChild(taskTextArea);
   taskForm.appendChild(notesElement);
 
-  // Button
+  addElementContainer.appendChild(taskForm);
+
   const addButton = document.createElement("button");
   addButton.setAttribute("id", "buttonTaskForm");
   addButton.textContent = "ADD";
-  addButton.addEventListener("click", clickFormInput, false);
+  addButton.addEventListener("click", formAddTaskMethod, false);
 
   taskForm.appendChild(addButton);
+
   return addElementContainer;
 }
 
-export { taskContainer, clickAddTask, addTaskForm };
+export { taskContainer, clickAddTask, addTaskForm, editTaskForm };

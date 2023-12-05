@@ -8,7 +8,7 @@ import {
   setActiveProject,
   activeProject,
 } from "./projects.js";
-import { clickAddTask, addTaskForm } from "./taskContainer.js";
+import { clickAddTask, addTaskForm, editTaskForm } from "./taskContainer.js";
 
 // Create the sample projects that will add at the end
 const sampleProjectOne = myProjectComposition("project1");
@@ -92,6 +92,7 @@ rightSide.appendChild(myTasks);
 myTasks.appendChild(myTasksTitle);
 myTasks.appendChild(addTask);
 myTasks.appendChild(addTaskForm());
+myTasks.appendChild(editTaskForm());
 
 // Child task element (task container)
 const homeTaskContainer = document.createElement("div");
