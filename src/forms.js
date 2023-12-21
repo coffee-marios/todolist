@@ -1,11 +1,49 @@
+import { activeProject, chosenTask, showTasks } from "./projects.js";
+import { getFormDataTask } from "./taskContainer.js";
+
 function submitEditTask() {
   // runs when the form is sub
-  console.log("Edit task");
+  console.clear();
   event.preventDefault();
+  //console.log("Chosen task: ", chosenTask);
+  //console.log(activeProject);
+  //activeProject.modifyTask(chosenTask);
+  //console.log("Chosen Task: ", chosenTask);
+
+  // Edited data
+  const formEdited = document.getElementById("editTaskForm");
+  const taskDataEdit = getFormDataTask(formEdited);
+
+  // destructuring assignment (I want to avoid naming conflicts)
+  const [
+    {
+      name: nameEdit,
+      date: dateEdit,
+      priority: priorityEdit,
+      notes: notesEdit,
+    },
+  ] = taskDataEdit;
+
+  // Original data
+  const { name, date, priority, notes } = chosenTask;
+
+  console.log("Edit:");
+  console.log(nameEdit, dateEdit, priorityEdit, notesEdit);
+  console.log("Original:");
+  console.log(name, date, priority, notes);
+
+  // Edit the data
+  activeProject.modifyTask(chosenTask, taskDataEdit[0]);
+
+  //}
+
   document.getElementById("editTaskDiv").style.display = "none";
+  showTasks(activeProject);
 }
 
 function editTaskForm() {
+  // The form is added in the index.js
+
   const containerEdit = document.createElement("div");
   containerEdit.setAttribute("id", "editTaskDiv");
 
@@ -14,11 +52,11 @@ function editTaskForm() {
   // Name the Task
   const elementNameTask = document.createElement("div");
   const labelTask = document.createElement("label");
-  labelTask.textContent = "Name the new task";
-  labelTask.setAttribute("for", "newTask");
+
+  labelTask.setAttribute("for", "editTask");
 
   const nameTask = document.createElement("input");
-  nameTask.setAttribute("id", "newTask");
+  nameTask.setAttribute("id", "editTask");
   nameTask.value = "Name the task";
   nameTask.type = "text";
   nameTask.name = "name";
@@ -33,10 +71,10 @@ function editTaskForm() {
 
   const labelDate = document.createElement("label");
   labelDate.textContent = "Date: ";
-  labelDate.setAttribute("for", "dueDate");
+  labelDate.setAttribute("for", "dueDateEdit");
 
   const inputDateTask = document.createElement("input");
-  inputDateTask.setAttribute("id", "dueDate");
+  inputDateTask.setAttribute("id", "dueDateEdit");
   inputDateTask.type = "date";
   inputDateTask.name = "date";
   taskForm.appendChild(labelDate);
@@ -49,16 +87,16 @@ function editTaskForm() {
   // Priority
 
   const priorityElement = document.createElement("div");
-  priorityElement.setAttribute("id", "priorityDiv");
+  priorityElement.setAttribute("id", "priorityDivEdit");
 
   const priorityTitle = document.createElement("p");
   priorityTitle.textContent = "Priority";
-  priorityTitle.setAttribute("id", "priority");
+  priorityTitle.setAttribute("id", "priorityEdit");
 
   // HIGH
   const inputPriorityHigh = document.createElement("input");
-  inputPriorityHigh.setAttribute("class", "inputPriority");
-  inputPriorityHigh.setAttribute("id", "highPriority");
+  inputPriorityHigh.setAttribute("class", "inputPriorityEdit");
+  inputPriorityHigh.setAttribute("id", "highPriorityEdit");
   inputPriorityHigh.setAttribute("value", "high");
 
   inputPriorityHigh.type = "radio";
@@ -66,13 +104,13 @@ function editTaskForm() {
 
   const labelPriorityHigh = document.createElement("label");
   labelPriorityHigh.textContent = "High";
-  labelPriorityHigh.setAttribute("class", "labelPriority");
-  labelPriorityHigh.setAttribute("for", "highPriority");
+  labelPriorityHigh.setAttribute("class", "labelPriorityEdit");
+  labelPriorityHigh.setAttribute("for", "highPriorityEdit");
 
   // MEDIUM
   const inputPriorityMedium = document.createElement("input");
-  inputPriorityMedium.setAttribute("class", "inputPriority");
-  inputPriorityMedium.setAttribute("id", "mediumPriority");
+  inputPriorityMedium.setAttribute("class", "inputPriorityEdit");
+  inputPriorityMedium.setAttribute("id", "mediumPriorityEdit");
   inputPriorityMedium.setAttribute("value", "medium");
 
   inputPriorityMedium.type = "radio";
@@ -80,13 +118,13 @@ function editTaskForm() {
 
   const labelPriorityMedium = document.createElement("label");
   labelPriorityMedium.textContent = "Medium";
-  labelPriorityMedium.setAttribute("class", "labelPriority");
-  labelPriorityMedium.setAttribute("for", "mediumPriority");
+  labelPriorityMedium.setAttribute("class", "labelPriorityEdit");
+  labelPriorityMedium.setAttribute("for", "mediumPriorityEdit");
 
   // LOW
   const inputPriorityLow = document.createElement("input");
-  inputPriorityLow.setAttribute("class", "inputPriority");
-  inputPriorityLow.setAttribute("id", "lowPriority");
+  inputPriorityLow.setAttribute("class", "inputPriorityEdit");
+  inputPriorityLow.setAttribute("id", "lowPriorityEdit");
   inputPriorityLow.setAttribute("value", "low");
 
   inputPriorityLow.type = "radio";
@@ -94,8 +132,8 @@ function editTaskForm() {
 
   const labelPriorityLow = document.createElement("label");
   labelPriorityLow.textContent = "Low";
-  labelPriorityLow.setAttribute("class", "labelPriority");
-  labelPriorityLow.setAttribute("for", "lowPriority");
+  labelPriorityLow.setAttribute("class", "labelPriorityEdit");
+  labelPriorityLow.setAttribute("for", "lowPriorityEdit");
 
   priorityElement.appendChild(priorityTitle);
 
@@ -114,9 +152,9 @@ function editTaskForm() {
 
   const notesTitle = document.createElement("label");
   notesTitle.textContent = "Notes";
-  notesTitle.setAttribute("for", "textAreaTask");
+  notesTitle.setAttribute("for", "textAreaTaskEdit");
   const taskTextArea = document.createElement("textarea");
-  taskTextArea.setAttribute("id", "textAreaTask");
+  taskTextArea.setAttribute("id", "textAreaTaskEdit");
   taskTextArea.setAttribute("rows", "5");
   taskTextArea.setAttribute("cols", "50");
   taskTextArea.name = "textAreaTask";

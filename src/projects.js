@@ -1,89 +1,121 @@
-// Manipulate projects
-
 import { elementProject, domShowTasks } from "./projectsDom.js";
 
 let activeProject;
+let chosenTask;
+
+function setChosenTask(task) {
+  chosenTask = task;
+}
 
 function setActiveProject(setProject) {
   activeProject = setProject;
 }
 
-// Sample projects
-const projects = {
-  project1: {
-    name: "Title1",
-    taskList: [
-      { task0: { name: "Read a book", dueDate: "dd/mm/yy", priority: "low" } },
-      {
-        task1: {
-          name: "Read An Empty House",
-          dueDate: "dd/mm/yy",
-          priority: "low",
-        },
-      },
-    ],
-  },
-  project2: {
-    name: "Title2",
-    taskList: [],
-  },
-};
+// How the objects are structured
+// const projects = {
+//  project1: {
+// name: "Title1",
+// taskList: [
+//   { task0: { name: "Read a book", dueDate: "dd/mm/yy", priority: "low" } },
+//   {
+//     task1: {
+//       name: "Read An Empty House",
+//       dueDate: "dd/mm/yy",
+//       priority: "low",
+//     },
+//   },
+// ],
+// },
+// project2: {
+//   name: "Title2",
+//   taskList: [],
+//  },
+// };
 
 // All the projects names
 const myProjects = [];
 
-const myProjectMethods = {
-  getProject: function () {
-    return this;
-  },
-  getProjectName: function () {
-    return this.name;
-  },
-  getTaskList: function () {
-    return this.taskList;
-  },
-  addTask: function (
-    name,
-    newTask,
-    date = "dd/mm/yy",
-    priority = "low",
-    notes = ""
-  ) {
-    this.taskId = assignTaskId();
-    let internalTask = {};
+function createProject(name) {
+  return { name };
+}
 
-    internalTask["name"] = newTask;
-    internalTask["date"] = date;
-    internalTask["priority"] = priority;
-    internalTask["notes"] = notes;
+function myProjectMethods(myProject) {
+  let taskId = -1;
 
-    this.taskList[this.taskId] = internalTask;
-  },
-};
+  const privateTaskList = {
+    taskList: {},
+  };
 
-function myProjectComposition(name, taskList = {}) {
-  return { name, taskList, ...myProjectMethods };
+  return {
+    ...myProject,
+    getTaskId: function () {
+      return taskId;
+    },
+    getProject: function () {
+      return this;
+    },
+    getProjectName: function () {
+      return this.name;
+    },
+    getTaskList: function () {
+      return privateTaskList.taskList;
+    },
+    modifyTask: function (
+      old,
+      newTask
+      // nameId,
+      // name = null,
+      // date = null,
+      // priority = null,
+      // notes = null
+    ) {
+      let idTask = Number(old["nameId"]);
+      idTask = Number(idTask);
+      //console.clear();
+      console.log("old", old, idTask);
+      console.log("new", newTask);
+      console.log("Task to change: ", privateTaskList.taskList[idTask]);
+      privateTaskList.taskList[idTask] = newTask;
+      console.log(privateTaskList.taskList);
+    },
+    addTask: function (name, date = "dd/mm/yy", priority = "low", notes = "") {
+      taskId++;
+      let internalTask = {};
+
+      internalTask["nameId"] = taskId;
+      internalTask["name"] = name;
+      internalTask["date"] = date;
+      internalTask["priority"] = priority;
+      internalTask["notes"] = notes;
+
+      privateTaskList.taskList[taskId] = internalTask;
+    },
+  };
 }
 
 function showTasks(projectL) {
-  console.clear();
+  console.log("Show: ", projectL);
+
   setActiveProject(projectL);
   console.log("Active project: ", projectL.getProjectName());
 
   console.log("project: ", projectL);
   let myProtoTasks = null;
   myProtoTasks = projectL.getTaskList();
+  //console.clear();
   const myTasks = Object.values(myProtoTasks);
+  const nameId = activeProject.getTaskId() + 1;
 
-  console.log("myTasks, ", myTasks);
-  console.log(myProtoTasks);
+  console.log("myTasks: ", myTasks);
 
-  console.log(Array.isArray(myTasks), myTasks.length);
+  console.log("nameId, ", nameId);
+
   domShowTasks(myTasks);
 }
 
 function clickAddProject(event) {
   event.preventDefault();
+
   document.getElementById("addProjectDiv").style.display = "none";
   const myForm = document.getElementById("addProjectForm");
 
@@ -91,12 +123,10 @@ function clickAddProject(event) {
   if (newTitle !== "") {
     let getId = assignProjectId();
     let keyProject = getId + "project";
-    const newProject = myProjectComposition(keyProject);
-    projects[keyProject] = { name: newTitle, taskList: [] };
+    const newProjectEmpty = createProject(keyProject);
+    const newProject = myProjectMethods(newProjectEmpty);
     appendProject(newTitle, newProject);
   }
-
-  console.log("projects", projects);
 }
 
 function addProjectForm() {
@@ -137,26 +167,25 @@ const createNewId = () => {
 };
 
 const assignProjectId = createNewId();
-const assignTaskId = createNewId();
 
 function appendProject(newProject, keyProject) {
-  console.clear();
   setActiveProject(keyProject);
-  console.log("Active project: ", keyProject);
-  const listPro = document.getElementById("listProjects");
+
+  const listProjects = document.getElementById("listProjects");
   const titleProject = elementProject(newProject, keyProject);
-  listPro.appendChild(titleProject);
-  console.log("listPro", listPro);
+  listProjects.appendChild(titleProject);
 }
 
 export {
   addProjectFunction,
   addProjectForm,
   showTasks,
-  projects,
-  myProjectComposition,
+  createProject,
+  myProjectMethods,
   myProjects,
   activeProject,
+  setChosenTask,
   setActiveProject,
   createNewId,
+  chosenTask,
 };

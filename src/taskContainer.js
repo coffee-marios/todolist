@@ -1,66 +1,77 @@
-import { activeProject, createNewId } from "./projects.js";
+import { activeProject, chosenTask, setChosenTask } from "./projects.js";
 import { editTaskForm } from "./forms.js";
-
-const nameTaskId = createNewId();
+import { domShowTasks } from "./projectsDom.js";
+// const nameTaskId = createNewId();
 
 function clickEditTask(event) {
-  // runs when the task is chosen
-  console.log("Editt", event);
-  const editTaskDiv = document.getElementById("editTaskDiv");
-  const [{ name, date, priority, notes }] = event;
-  console.log("prp", name, date, priority, notes);
+  // runs when the task is chosen;
+  // it displays the form at the end
 
-  const valueTask = document.getElementById("newTask");
-  //valueTask.setAttribute("value", name);
-  valueTask.value = name;
-  console.log("value:", valueTask.value);
+  // console.clear();
+
+  // console.log("Task id", event["nameId"]);
+  // console.log("Click Edit Task: ", event);
+  setChosenTask(event);
+  console.log("Chosen task: ", chosenTask);
+  const editTaskDiv = document.getElementById("editTaskDiv");
+  const editForm = document.getElementById("editTaskForm");
+
+  const { name, date, priority, notes } = event;
+  //console.log("prp", name, date, priority, notes);
+
+  // Change the labels
+
+  let oldTask = editForm.elements["editTask"];
+  let oldDate = editForm.elements["dueDateEdit"];
+  oldTask.value = name;
+  oldDate.value = date;
+  let oldNotes = editForm.elements["textAreaTaskEdit"];
+  //console.log(editForm.elements);
+  //console.log(oldNotes);
+  oldNotes.value = notes;
+  let oldPriority = document.querySelectorAll("input[name=" + "priority" + "]");
+  for (let i = 0; i < oldPriority.length; i++) {
+    if (oldPriority[i].value === priority) {
+      oldPriority[i].checked = true;
+    }
+  }
+  //console.log("Active project: ", activeProject);
 
   editTaskDiv.style.display = "block";
-  console.log("after:", editTaskDiv);
-}
-
-// Task container
-
-// Right now it doesn't really do anything
-
-function taskContainer(project) {
-  const containerTask = document.createElement("div");
-  containerTask.classList.add("taskContainerFirst");
-  console.log(project);
-  console.log(project["taskList"]);
-  return project;
 }
 
 function clickAddTask() {
-  console.clear();
+  // console.clear();
   document.getElementById("addTaskDiv").style.display = "block";
   console.log("Active project: ", activeProject);
 }
 
-function formAddTaskMethod(taskSet) {
+function formAddTaskMethod() {
   // Adds the task to the project
-
-  const taskData = getFormDataTask(taskSet);
-  appendNewTask(taskData);
-
-  const nameId = nameTaskId() + "task";
+  const myFormTask = document.getElementById("addTaskForm");
+  const taskData = getFormDataTask(myFormTask);
+  // const nameId = activeProject.getTaskId() + 1; //  nameTaskId() + "task";
 
   const [{ name, date, priority, notes }] = taskData;
 
-  activeProject.addTask(nameId, name, date, priority, notes);
-  console.log(activeProject);
+  activeProject.addTask(name, date, priority, notes);
+
+  let myProtoTasks = null;
+  myProtoTasks = activeProject.getTaskList();
+  const myTasks = Object.values(myProtoTasks);
+  domShowTasks(myTasks);
 }
 
-function getFormDataTask() {
+function getFormDataTask(whichForm) {
   event.preventDefault();
   document.getElementById("addTaskDiv").style.display = "none";
-  const myFormTask = document.getElementById("addTaskForm");
+  const myFormTask = whichForm;
   const newTask = myFormTask["name"].value;
   const newDate = myFormTask["date"].value;
   let newImportance = myFormTask["priority"].value;
   const newNotes = myFormTask["textAreaTask"].value;
 
-  console.clear();
+  //console.clear();
 
   console.log("Active project: ", activeProject);
   const taskSet = [
@@ -68,61 +79,6 @@ function getFormDataTask() {
   ];
 
   return taskSet;
-}
-
-function appendNewTask(taskSet) {
-  console.log("Task properties: ", taskSet);
-  const myContainer = document.getElementById("taskContainerId");
-  for (const property of taskSet) {
-    console.log("property: ", property);
-    const newTaskDom = document.createElement("div");
-    newTaskDom.classList.add("tasksUnit");
-
-    // New title
-    const newTitle = document.createElement("p");
-    const nameTitleTask = property.name;
-    newTitle.textContent = nameTitleTask;
-
-    // New extras
-    const newExtras = document.createElement("div");
-
-    // New date
-    const newDueDate = document.createElement("span");
-    newDueDate.textContent = property.date;
-    newExtras.appendChild(newDueDate);
-
-    // New priority
-    const newPriority = document.createElement("span");
-    newPriority.textContent = `PRIORITY: ${property.priority}`;
-    newExtras.appendChild(newPriority);
-
-    // New notes
-    const newNotesElement = document.createElement("button");
-
-    newNotesElement.textContent = "Notes";
-    newExtras.appendChild(newNotesElement);
-    const newNotesText = document.createElement("pre");
-    newNotesText.classList.add("notesPre");
-    newNotesText.textContent = property.notes;
-
-    // New edit
-    const newEdit = document.createElement("button");
-    newEdit.textContent = "**";
-    newExtras.appendChild(newEdit);
-    newEdit.addEventListener(
-      "click",
-      () => {
-        clickEditTask(taskSet);
-      },
-      false
-    );
-
-    myContainer.appendChild(newTaskDom);
-    newTaskDom.appendChild(newTitle);
-    newTaskDom.appendChild(newExtras);
-    newExtras.appendChild(newNotesText);
-    myContainer.appendChild(newTaskDom);
-  }
 }
 
 function addTaskForm() {
@@ -258,4 +214,11 @@ function addTaskForm() {
   return addElementContainer;
 }
 
-export { taskContainer, clickAddTask, addTaskForm, editTaskForm };
+export {
+  clickAddTask,
+  addTaskForm,
+  editTaskForm,
+  getFormDataTask,
+  clickEditTask,
+  domShowTasks,
+};

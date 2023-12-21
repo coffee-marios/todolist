@@ -3,32 +3,40 @@ import "./style.css";
 import { renderProjects, elementProject } from "./projectsDom.js";
 import {
   showTasks,
-  myProjectComposition,
+  createProject,
   myProjects,
   setActiveProject,
   activeProject,
+  myProjectMethods,
 } from "./projects.js";
-import { clickAddTask, addTaskForm, editTaskForm } from "./taskContainer.js";
+import { clickAddTask, addTaskForm } from "./taskContainer.js";
+import { editTaskForm } from "./forms.js";
 
 // Create the sample projects that will add at the end
-const sampleProjectOne = myProjectComposition("project1");
+
+const sampleProject = createProject("project1");
+const sampleProjectOne = myProjectMethods(sampleProject);
+
 console.log("index sample object", sampleProjectOne);
 
 const nameProjectSampleOne = sampleProjectOne.getProjectName();
+console.log("name project ", nameProjectSampleOne);
 
-myProjects.push(sampleProjectOne.getProjectName());
-sampleProjectOne.addTask("task1", "Read a 90 book", "33", "low", "ss");
-sampleProjectOne.addTask("task2", "Read An Empty 0 House");
+myProjects.push(sampleProjectOne);
+sampleProjectOne.addTask("Read a 90 book", "33", "low", "ss");
+sampleProjectOne.addTask("Read An Empty 0 House");
 
 console.log("first sample object", sampleProjectOne);
 setActiveProject(sampleProjectOne);
 console.log("Active project: ", activeProject);
 
-const sampleProjectTwo = myProjectComposition("project2");
+const sampleProjectNext = createProject("project2");
+const sampleProjectTwo = myProjectMethods(sampleProjectNext);
+
 const nameProjectSampleTwo = sampleProjectTwo.getProjectName();
-sampleProjectTwo.addTask("task1", "Read ", "3d3", "high", "sas");
-myProjects.push(sampleProjectTwo.getProjectName());
-console.log(myProjects);
+sampleProjectTwo.addTask("Read a great book", "3d3", "high", "sas");
+myProjects.push(sampleProjectTwo);
+// console.log(myProjects);
 
 const createElementSampleOne = elementProject(
   nameProjectSampleOne,
@@ -43,6 +51,10 @@ const createElementSampleTwo = elementProject(
 ///////////////////////////
 ////
 ///
+//
+
+// Create and add dom elements
+
 function myHeader() {
   const element = document.createElement("header");
 
@@ -73,6 +85,7 @@ rightSide.classList.add("rightSection");
 // Parent task element
 const myTasks = document.createElement("div");
 myTasks.classList.add("tasks");
+myTasks.setAttribute("id", "myTasksID");
 
 const myTasksTitle = document.createElement("span");
 myTasksTitle.innerText = "TASKS";
@@ -112,9 +125,9 @@ const listOfProjects = document.getElementById("listProjects");
 listOfProjects.appendChild(createElementSampleOne);
 listOfProjects.appendChild(createElementSampleTwo);
 // We have to show some tasks
-let show1 = sampleProjectOne.getTaskList();
-let taskP = Object.values(show1);
-console.log("index-tasks ", taskP);
+//let show1 = sampleProjectOne.getTaskList();
+//let taskP = Object.values(show1);
+//console.log("index-tasks ", taskP);
 
 showTasks(sampleProjectOne);
 

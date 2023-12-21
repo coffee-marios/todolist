@@ -1,4 +1,5 @@
 import { addProjectFunction, addProjectForm, showTasks } from "./projects.js";
+import { clickEditTask } from "./taskContainer.js";
 
 function elementProject(nameProjectDom, keyProject) {
   const newProject = document.createElement("button");
@@ -13,47 +14,52 @@ function elementProject(nameProjectDom, keyProject) {
 }
 
 function domShowTasks(myTasks) {
+  console.clear();
+
   const myContainer = document.getElementById("taskContainerId");
-
   myContainer.replaceChildren();
-
-  console.log("myTasks, ", myTasks);
-
+  console.log("myTasks dom, ", myTasks);
   for (const property of myTasks) {
     console.log("property: ", property);
     const newTask = document.createElement("div");
     newTask.classList.add("tasksUnit");
-
     // New title
     const newTitle = document.createElement("p");
     newTitle.textContent = property.name;
-
+    // Place notes
+    const setNotes = document.createElement("div");
+    setNotes.textContent = property.notes;
     // New extras
     const newExtras = document.createElement("div");
-
     // New date
     const newDueDate = document.createElement("span");
     newDueDate.textContent = property.date;
     newExtras.appendChild(newDueDate);
-
     // New priority
     const newPriority = document.createElement("span");
     newPriority.textContent = `PRIORITY: ${property.priority}`;
     newExtras.appendChild(newPriority);
-
     // New notes
     const newNotes = document.createElement("button");
     newNotes.textContent = "Notes";
     newExtras.appendChild(newNotes);
-
     // New edit
     const newEdit = document.createElement("button");
     newEdit.textContent = "*";
-    newExtras.appendChild(newEdit);
+    newEdit.addEventListener(
+      "click",
+      () => {
+        clickEditTask(property);
+      },
+      false
+    );
 
+    newExtras.appendChild(newEdit);
     myContainer.appendChild(newTask);
     newTask.appendChild(newTitle);
+
     newTask.appendChild(newExtras);
+    newTask.appendChild(setNotes);
     myContainer.appendChild(newTask);
   }
 }
