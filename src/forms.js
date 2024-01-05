@@ -3,7 +3,7 @@ import { getFormDataTask } from "./taskContainer.js";
 
 function submitEditTask() {
   // runs when the form is sub
-  console.clear();
+  //console.clear();
   event.preventDefault();
   //console.log("Chosen task: ", chosenTask);
   //console.log(activeProject);

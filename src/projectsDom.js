@@ -1,5 +1,15 @@
-import { addProjectFunction, addProjectForm, showTasks } from "./projects.js";
+import {
+  addProjectFunction,
+  addProjectForm,
+  showTasks,
+  activeProject,
+  chosenTask,
+} from "./projects.js";
 import { clickEditTask } from "./taskContainer.js";
+
+function seeNotes(idN) {
+  console.log(idN);
+}
 
 function elementProject(nameProjectDom, keyProject) {
   const newProject = document.createElement("button");
@@ -14,8 +24,8 @@ function elementProject(nameProjectDom, keyProject) {
 }
 
 function domShowTasks(myTasks) {
-  console.clear();
-
+  // console.clear();
+  console.log(chosenTask);
   const myContainer = document.getElementById("taskContainerId");
   myContainer.replaceChildren();
   console.log("myTasks dom, ", myTasks);
@@ -29,6 +39,10 @@ function domShowTasks(myTasks) {
     // Place notes
     const setNotes = document.createElement("div");
     setNotes.textContent = property.notes;
+    setNotes.classList.add("myNotes");
+    const idNote = "";
+    setNotes.setAttribute("id", idNote);
+
     // New extras
     const newExtras = document.createElement("div");
     // New date
@@ -42,6 +56,13 @@ function domShowTasks(myTasks) {
     // New notes
     const newNotes = document.createElement("button");
     newNotes.textContent = "Notes";
+    // newNotes.addEventListener(
+    //   "click",
+    //   () => {
+    //     seeNotes(idNote);
+    //   },
+    //   false
+    // );
     newExtras.appendChild(newNotes);
     // New edit
     const newEdit = document.createElement("button");
@@ -83,7 +104,6 @@ function renderProjects() {
   addProject.setAttribute("id", "startProjectButton");
   addProject.innerText = "+";
   addProject.addEventListener("click", addProjectFunction);
-  // document.removeEventListener("click", addProjectFunction);
 
   myProjects.appendChild(addProject);
 

@@ -1115,11 +1115,19 @@ label[for="textAreaTask"] {
     margin: 0;
 }
 
+.myNotes {
+    max-width: 100%;
+    background-color: rgb(240, 80, 255);
+    padding: 0.6rem;
+    margin: 5px;
+    text-align: justify;
+}
+
 /* notes */
 
-.notesPre {
+/* .notesPre {
     text-align: left;
     margin-left: 5%;
     width: 90%;
     overflow: auto;
-}
+} */

@@ -15,20 +15,17 @@ function setActiveProject(setProject) {
 // const projects = {
 //  project1: {
 // name: "Title1",
-// taskList: [
-//   { task0: { name: "Read a book", dueDate: "dd/mm/yy", priority: "low" } },
-//   {
+// taskList: {
+//    task0: { name: "Read a book", dueDate: "dd/mm/yy", priority: "low" },
+//
 //     task1: {
 //       name: "Read An Empty House",
 //       dueDate: "dd/mm/yy",
-//       priority: "low",
-//     },
-//   },
-// ],
+//       priority: "low",  }
 // },
 // project2: {
 //   name: "Title2",
-//   taskList: [],
+//   taskList: {},
 //  },
 // };
 
@@ -36,20 +33,18 @@ function setActiveProject(setProject) {
 const myProjects = [];
 
 function createProject(name) {
-  return { name };
+  return { name, taskList: {} };
 }
 
+// The argument will be the instantiation of createProject
 function myProjectMethods(myProject) {
-  let taskId = -1;
-
-  const privateTaskList = {
-    taskList: {},
-  };
-
   return {
     ...myProject,
     getTaskId: function () {
-      return taskId;
+      return this.taskId;
+    },
+    getPrivateTaskId: function () {
+      return this.taskList.privateTaskId;
     },
     getProject: function () {
       return this;
@@ -58,37 +53,39 @@ function myProjectMethods(myProject) {
       return this.name;
     },
     getTaskList: function () {
-      return privateTaskList.taskList;
+      return this.taskList;
     },
-    modifyTask: function (
-      old,
-      newTask
-      // nameId,
-      // name = null,
-      // date = null,
-      // priority = null,
-      // notes = null
-    ) {
-      let idTask = Number(old["nameId"]);
-      idTask = Number(idTask);
-      //console.clear();
+    modifyTask: function (old, newTask) {
+      console.clear();
+      let idTask = old["nameId"];
+
+      let getTask = activeProject.getTaskList();
+      console.log("idTask", idTask);
+
       console.log("old", old, idTask);
       console.log("new", newTask);
-      console.log("Task to change: ", privateTaskList.taskList[idTask]);
-      privateTaskList.taskList[idTask] = newTask;
-      console.log(privateTaskList.taskList);
+      console.log("Task to change: ", chosenTask["nameId"]);
+      console.log(activeProject);
+      console.log("TASK CASE", this.taskList[idTask]);
+      this.taskList[idTask] = newTask;
+      this.taskList[idTask]["nameId"] = idTask;
+
+      console.log("TASK", getTask);
     },
     addTask: function (name, date = "dd/mm/yy", priority = "low", notes = "") {
-      taskId++;
+      let taskId = assignTaskId();
+
+      let nameIdTask = "task" + taskId;
       let internalTask = {};
 
-      internalTask["nameId"] = taskId;
+      internalTask["nameId"] = nameIdTask;
       internalTask["name"] = name;
       internalTask["date"] = date;
       internalTask["priority"] = priority;
       internalTask["notes"] = notes;
 
-      privateTaskList.taskList[taskId] = internalTask;
+      this.taskList[nameIdTask] = internalTask;
+      console.log("PRIVATE task, ", this.taskList);
     },
   };
 }
@@ -167,6 +164,7 @@ const createNewId = () => {
 };
 
 const assignProjectId = createNewId();
+const assignTaskId = createNewId();
 
 function appendProject(newProject, keyProject) {
   setActiveProject(keyProject);
