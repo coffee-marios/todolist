@@ -4,11 +4,17 @@ import {
   showTasks,
   activeProject,
   chosenTask,
+  setChosenTask,
 } from "./projects.js";
 import { clickEditTask } from "./taskContainer.js";
 
-function seeNotes(idN) {
-  console.log(idN);
+function setCompleted(event) {
+  setChosenTask(event);
+  console.clear();
+  let { completed } = event;
+  completed = !completed;
+  activeProject.endTask(chosenTask, completed);
+  console.log(chosenTask["nameId"]);
 }
 
 function elementProject(nameProjectDom, keyProject) {
@@ -24,21 +30,27 @@ function elementProject(nameProjectDom, keyProject) {
 }
 
 function domShowTasks(myTasks) {
-  // console.clear();
+  console.clear();
   console.log(chosenTask);
+
   const myContainer = document.getElementById("taskContainerId");
   myContainer.replaceChildren();
   console.log("myTasks dom, ", myTasks);
-  for (const property of myTasks) {
-    console.log("property: ", property);
+
+  for (const eachTask of myTasks) {
     const newTask = document.createElement("div");
     newTask.classList.add("tasksUnit");
+    newTask.setAttribute("id", eachTask["nameId"]);
+    if (eachTask["completed"]) {
+      //console.log("myTasks dom, ", true);
+      newTask.classList.add("taskCompleted");
+    }
     // New title
     const newTitle = document.createElement("p");
-    newTitle.textContent = property.name;
+    newTitle.textContent = eachTask.name;
     // Place notes
     const setNotes = document.createElement("div");
-    setNotes.textContent = property.notes;
+    setNotes.textContent = eachTask.notes;
     setNotes.classList.add("myNotes");
     const idNote = "";
     setNotes.setAttribute("id", idNote);
@@ -47,30 +59,30 @@ function domShowTasks(myTasks) {
     const newExtras = document.createElement("div");
     // New date
     const newDueDate = document.createElement("span");
-    newDueDate.textContent = property.date;
+    newDueDate.textContent = eachTask.date;
     newExtras.appendChild(newDueDate);
     // New priority
     const newPriority = document.createElement("span");
-    newPriority.textContent = `PRIORITY: ${property.priority}`;
+    newPriority.textContent = `PRIORITY: ${eachTask.priority}`;
     newExtras.appendChild(newPriority);
-    // New notes
-    const newNotes = document.createElement("button");
-    newNotes.textContent = "Notes";
-    // newNotes.addEventListener(
-    //   "click",
-    //   () => {
-    //     seeNotes(idNote);
-    //   },
-    //   false
-    // );
-    newExtras.appendChild(newNotes);
+    // Completed
+    const completed = document.createElement("button");
+    completed.textContent = "Completed";
+    completed.addEventListener(
+      "click",
+      () => {
+        setCompleted(eachTask);
+      },
+      false
+    );
+    newExtras.appendChild(completed);
     // New edit
     const newEdit = document.createElement("button");
     newEdit.textContent = "*";
     newEdit.addEventListener(
       "click",
       () => {
-        clickEditTask(property);
+        clickEditTask(eachTask);
       },
       false
     );

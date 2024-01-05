@@ -55,14 +55,22 @@ function myProjectMethods(myProject) {
     getTaskList: function () {
       return this.taskList;
     },
-    modifyTask: function (old, newTask) {
-      console.clear();
-      let idTask = old["nameId"];
+    endTask: function (taskInQuestion, isCompleted) {
+      console.log("TASK CASE end", taskInQuestion);
+      taskInQuestion["completed"] = isCompleted;
+      let myElementTask = document.getElementById(chosenTask["nameId"]);
+      if (isCompleted) {
+        myElementTask.classList.add("taskCompleted");
+      }
+    },
+    modifyTask: function (oldTask, newTask) {
+      //console.clear();
+      let idTask = oldTask["nameId"];
 
       let getTask = activeProject.getTaskList();
       console.log("idTask", idTask);
 
-      console.log("old", old, idTask);
+      console.log("old", oldTask, idTask);
       console.log("new", newTask);
       console.log("Task to change: ", chosenTask["nameId"]);
       console.log(activeProject);
@@ -83,6 +91,7 @@ function myProjectMethods(myProject) {
       internalTask["date"] = date;
       internalTask["priority"] = priority;
       internalTask["notes"] = notes;
+      internalTask["completed"] = false;
 
       this.taskList[nameIdTask] = internalTask;
       console.log("PRIVATE task, ", this.taskList);

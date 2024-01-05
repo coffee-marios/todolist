@@ -4,13 +4,10 @@ import { domShowTasks } from "./projectsDom.js";
 // const nameTaskId = createNewId();
 
 function clickEditTask(event) {
-  // runs when the task is chosen;
-  // it displays the form at the end
+  // it displays the form for editing
 
   // console.clear();
 
-  // console.log("Task id", event["nameId"]);
-  // console.log("Click Edit Task: ", event);
   setChosenTask(event);
   console.log("Chosen task: ", chosenTask);
   const editTaskDiv = document.getElementById("editTaskDiv");
@@ -23,12 +20,13 @@ function clickEditTask(event) {
 
   let oldTask = editForm.elements["editTask"];
   let oldDate = editForm.elements["dueDateEdit"];
+
   oldTask.value = name;
   oldDate.value = date;
+
   let oldNotes = editForm.elements["textAreaTaskEdit"];
-  //console.log(editForm.elements);
-  //console.log(oldNotes);
   oldNotes.value = notes;
+
   let oldPriority = document.querySelectorAll("input[name=" + "priority" + "]");
   for (let i = 0; i < oldPriority.length; i++) {
     if (oldPriority[i].value === priority) {

@@ -1123,11 +1123,7 @@ label[for="textAreaTask"] {
     text-align: justify;
 }
 
-/* notes */
-
-/* .notesPre {
-    text-align: left;
-    margin-left: 5%;
-    width: 90%;
-    overflow: auto;
-} */
+.taskCompleted {
+    text-decoration: line-through;
+    background-color: crimson;
+}

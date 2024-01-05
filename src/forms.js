@@ -10,7 +10,7 @@ function submitEditTask() {
   //activeProject.modifyTask(chosenTask);
   //console.log("Chosen Task: ", chosenTask);
 
-  // Edited data
+  // Edited data (the data that we submit as corrections)
   const formEdited = document.getElementById("editTaskForm");
   const taskDataEdit = getFormDataTask(formEdited);
 
@@ -34,8 +34,6 @@ function submitEditTask() {
 
   // Edit the data
   activeProject.modifyTask(chosenTask, taskDataEdit[0]);
-
-  //}
 
   document.getElementById("editTaskDiv").style.display = "none";
   showTasks(activeProject);
@@ -166,7 +164,7 @@ function editTaskForm() {
   taskForm.setAttribute("id", "editTaskForm");
   containerEdit.appendChild(taskForm);
 
-  // Button
+  // Button Edit
   const editButton = document.createElement("button");
   editButton.setAttribute("id", "buttonEditTask");
   editButton.textContent = "EDIT";
