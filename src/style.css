@@ -1127,3 +1127,11 @@ label[for="textAreaTask"] {
     text-decoration: line-through;
     background-color: crimson;
 }
+
+.taskCompleted button {
+    background-color: crimson;
+}
+
+.taskCompleted .buttonEditTask {
+    display: none;
+}

@@ -56,11 +56,13 @@ function myProjectMethods(myProject) {
       return this.taskList;
     },
     endTask: function (taskInQuestion, isCompleted) {
-      console.log("TASK CASE end", taskInQuestion);
+      // It changes only the visual aspect of the task
       taskInQuestion["completed"] = isCompleted;
       let myElementTask = document.getElementById(chosenTask["nameId"]);
       if (isCompleted) {
         myElementTask.classList.add("taskCompleted");
+      } else {
+        myElementTask.classList.remove("taskCompleted");
       }
     },
     modifyTask: function (oldTask, newTask) {

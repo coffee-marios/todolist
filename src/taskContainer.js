@@ -9,12 +9,11 @@ function clickEditTask(event) {
   // console.clear();
 
   setChosenTask(event);
-  console.log("Chosen task: ", chosenTask);
+  // console.log("Chosen task: ", chosenTask);
   const editTaskDiv = document.getElementById("editTaskDiv");
   const editForm = document.getElementById("editTaskForm");
 
   const { name, date, priority, notes } = event;
-  //console.log("prp", name, date, priority, notes);
 
   // Change the labels
 

@@ -8,13 +8,18 @@ import {
 } from "./projects.js";
 import { clickEditTask } from "./taskContainer.js";
 
-function setCompleted(event) {
+function setCompleted(event, buttonCompletion) {
   setChosenTask(event);
   console.clear();
   let { completed } = event;
   completed = !completed;
+  if (completed == false) {
+    buttonCompletion.textContent = "Open";
+  } else {
+    buttonCompletion.textContent = "Closed";
+  }
+
   activeProject.endTask(chosenTask, completed);
-  console.log(chosenTask["nameId"]);
 }
 
 function elementProject(nameProjectDom, keyProject) {
@@ -67,17 +72,18 @@ function domShowTasks(myTasks) {
     newExtras.appendChild(newPriority);
     // Completed
     const completed = document.createElement("button");
-    completed.textContent = "Completed";
+    completed.textContent = "Open";
     completed.addEventListener(
       "click",
       () => {
-        setCompleted(eachTask);
+        setCompleted(eachTask, completed);
       },
       false
     );
     newExtras.appendChild(completed);
     // New edit
     const newEdit = document.createElement("button");
+    newEdit.classList.add("buttonEditTask");
     newEdit.textContent = "*";
     newEdit.addEventListener(
       "click",
