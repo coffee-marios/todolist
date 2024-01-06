@@ -46,10 +46,7 @@ function domShowTasks(myTasks) {
     const newTask = document.createElement("div");
     newTask.classList.add("tasksUnit");
     newTask.setAttribute("id", eachTask["nameId"]);
-    if (eachTask["completed"]) {
-      //console.log("myTasks dom, ", true);
-      newTask.classList.add("taskCompleted");
-    }
+
     // New title
     const newTitle = document.createElement("p");
     newTitle.textContent = eachTask.name;
@@ -70,6 +67,7 @@ function domShowTasks(myTasks) {
     const newPriority = document.createElement("span");
     newPriority.textContent = `PRIORITY: ${eachTask.priority}`;
     newExtras.appendChild(newPriority);
+
     // Completed
     const completed = document.createElement("button");
     completed.textContent = "Open";
@@ -80,6 +78,12 @@ function domShowTasks(myTasks) {
       },
       false
     );
+    if (eachTask["completed"]) {
+      //console.log("myTasks dom, ", true);
+      newTask.classList.add("taskCompleted");
+      completed.textContent = "Closed";
+    }
+
     newExtras.appendChild(completed);
     // New edit
     const newEdit = document.createElement("button");
