@@ -1135,3 +1135,9 @@ label[for="textAreaTask"] {
 .taskCompleted .buttonEditTask {
     display: none;
 }
+
+
+.removeTask {
+    background-color: red;
+    color: white;
+}

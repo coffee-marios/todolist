@@ -11,24 +11,6 @@ function setActiveProject(setProject) {
   activeProject = setProject;
 }
 
-// How the objects are structured
-// const projects = {
-//  project1: {
-// name: "Title1",
-// taskList: {
-//    task0: { name: "Read a book", dueDate: "dd/mm/yy", priority: "low" },
-//
-//     task1: {
-//       name: "Read An Empty House",
-//       dueDate: "dd/mm/yy",
-//       priority: "low",  }
-// },
-// project2: {
-//   name: "Title2",
-//   taskList: {},
-//  },
-// };
-
 // All the projects names
 const myProjects = [];
 
@@ -42,9 +24,6 @@ function myProjectMethods(myProject) {
     ...myProject,
     getTaskId: function () {
       return this.taskId;
-    },
-    getPrivateTaskId: function () {
-      return this.taskList.privateTaskId;
     },
     getProject: function () {
       return this;
@@ -64,6 +43,14 @@ function myProjectMethods(myProject) {
       } else {
         myElementTask.classList.remove("taskCompleted");
       }
+    },
+    deleteTask: function (obsoleteTask) {
+      console.clear();
+      let idTask = obsoleteTask["nameId"];
+      delete this.taskList[idTask];
+      console.log(this.taskList);
+      const myTasks = Object.values(this.taskList);
+      domShowTasks(myTasks);
     },
     modifyTask: function (oldTask, newTask) {
       //console.clear();
@@ -95,6 +82,7 @@ function myProjectMethods(myProject) {
       internalTask["notes"] = notes;
       internalTask["completed"] = false;
 
+      // Every task is a value whose key is nameIdTask
       this.taskList[nameIdTask] = internalTask;
       console.log("PRIVATE task, ", this.taskList);
     },

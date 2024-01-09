@@ -8,6 +8,11 @@ import {
 } from "./projects.js";
 import { clickEditTask } from "./taskContainer.js";
 
+function clickRemoveTask(event) {
+  setChosenTask(event);
+  activeProject.deleteTask(chosenTask);
+}
+
 function setCompleted(event, buttonCompletion) {
   setChosenTask(event);
   console.clear();
@@ -50,6 +55,7 @@ function domShowTasks(myTasks) {
     // New title
     const newTitle = document.createElement("p");
     newTitle.textContent = eachTask.name;
+
     // Place notes
     const setNotes = document.createElement("div");
     setNotes.textContent = eachTask.notes;
@@ -68,6 +74,9 @@ function domShowTasks(myTasks) {
     newPriority.textContent = `PRIORITY: ${eachTask.priority}`;
     newExtras.appendChild(newPriority);
 
+    // New task setting
+    const newSetting = document.createElement("div");
+
     // Completed
     const completed = document.createElement("button");
     completed.textContent = "Open";
@@ -84,11 +93,12 @@ function domShowTasks(myTasks) {
       completed.textContent = "Closed";
     }
 
-    newExtras.appendChild(completed);
+    newSetting.appendChild(completed);
+
     // New edit
     const newEdit = document.createElement("button");
     newEdit.classList.add("buttonEditTask");
-    newEdit.textContent = "*";
+    newEdit.textContent = "Edit";
     newEdit.addEventListener(
       "click",
       () => {
@@ -97,12 +107,28 @@ function domShowTasks(myTasks) {
       false
     );
 
-    newExtras.appendChild(newEdit);
+    newSetting.appendChild(newEdit);
+
+    // Remove task
+    const removeTask = document.createElement("button");
+    removeTask.classList.add("removeTask");
+    removeTask.textContent = "Remove";
+    removeTask.addEventListener(
+      "click",
+      () => {
+        clickRemoveTask(eachTask);
+      },
+      false
+    );
+
+    newSetting.appendChild(removeTask);
+
     myContainer.appendChild(newTask);
     newTask.appendChild(newTitle);
-
     newTask.appendChild(newExtras);
     newTask.appendChild(setNotes);
+    newTask.appendChild(newSetting);
+
     myContainer.appendChild(newTask);
   }
 }
