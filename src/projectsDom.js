@@ -8,6 +8,11 @@ import {
 } from "./projects.js";
 import { clickEditTask } from "./taskContainer.js";
 
+function removeProject(project) {
+  console.log(project);
+  project.remove();
+}
+
 function clickRemoveTask(event) {
   setChosenTask(event);
   activeProject.deleteTask(chosenTask);
@@ -28,6 +33,10 @@ function setCompleted(event, buttonCompletion) {
 }
 
 function elementProject(nameProjectDom, keyProject) {
+  const projectDiv = document.createElement("div");
+  projectDiv.classList.add("projectsUnit");
+
+  // The project
   const newProject = document.createElement("button");
   newProject.classList.add("buttonProjects");
   newProject.setAttribute("id", keyProject);
@@ -36,7 +45,17 @@ function elementProject(nameProjectDom, keyProject) {
   newProject.addEventListener("click", () => {
     showTasks(keyProject);
   });
-  return newProject;
+  projectDiv.appendChild(newProject);
+
+  // The option to remove it
+  const removeProjectButton = document.createElement("button");
+  newProject.classList.add("removeProjects");
+  removeProjectButton.textContent = "Delete";
+  removeProjectButton.addEventListener("click", () => {
+    removeProject(projectDiv);
+  });
+  projectDiv.appendChild(removeProjectButton);
+  return projectDiv;
 }
 
 function domShowTasks(myTasks) {

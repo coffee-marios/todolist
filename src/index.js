@@ -124,10 +124,6 @@ document.body.appendChild(contain);
 const listOfProjects = document.getElementById("listProjects");
 listOfProjects.appendChild(createElementSampleOne);
 listOfProjects.appendChild(createElementSampleTwo);
-// We have to show some tasks
-//let show1 = sampleProjectOne.getTaskList();
-//let taskP = Object.values(show1);
-//console.log("index-tasks ", taskP);
 
 showTasks(sampleProjectOne);
 
