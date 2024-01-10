@@ -8,7 +8,24 @@ function setChosenTask(task) {
 }
 
 function setActiveProject(setProject) {
+  console.clear();
+
+  console.log("A", activeProject);
+
+  // We set the active project and change the color of the button
+  if (activeProject !== undefined) {
+    let projectName = activeProject.getProjectName();
+    let projectId = document.getElementById(projectName);
+    projectId.classList.remove("activeProject");
+  }
+
   activeProject = setProject;
+  let _projectName = activeProject.getProjectName();
+  let _projectId = document.getElementById(_projectName);
+
+  if (_projectId !== null) {
+    _projectId.classList.add("activeProject");
+  }
 }
 
 // All the projects names
@@ -166,11 +183,13 @@ const assignProjectId = createNewId();
 const assignTaskId = createNewId();
 
 function appendProject(newProject, keyProject) {
-  setActiveProject(keyProject);
-
   const listProjects = document.getElementById("listProjects");
   const titleProject = elementProject(newProject, keyProject);
+
   listProjects.appendChild(titleProject);
+
+  setActiveProject(keyProject);
+  showTasks(keyProject);
 }
 
 export {
