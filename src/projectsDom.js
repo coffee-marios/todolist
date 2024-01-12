@@ -64,7 +64,6 @@ function elementProject(nameProjectDom, keyProject) {
   projectDiv.addEventListener(
     "mouseover",
     () => {
-      console.log(33);
       removeProjectButton.classList.remove("hideRemoveButton");
     },
     false
@@ -73,7 +72,6 @@ function elementProject(nameProjectDom, keyProject) {
   projectDiv.addEventListener(
     "mouseout",
     () => {
-      console.log(343);
       removeProjectButton.classList.add("hideRemoveButton");
     },
     false
@@ -94,28 +92,40 @@ function domShowTasks(myTasks) {
     const newTask = document.createElement("div");
     newTask.classList.add("tasksUnit");
     newTask.setAttribute("id", eachTask["nameId"]);
+    myContainer.appendChild(newTask);
 
     // New title
     const newTitle = document.createElement("p");
     newTitle.textContent = eachTask.name;
 
-    // Place notes
-    const setNotes = document.createElement("div");
-    setNotes.textContent = eachTask.notes;
-    setNotes.classList.add("myNotes");
-    const idNote = "";
-    setNotes.setAttribute("id", idNote);
+    newTask.appendChild(newTitle);
 
-    // New extras
+    // New extras (date, priority)
     const newExtras = document.createElement("div");
+
     // New date
-    const newDueDate = document.createElement("span");
-    newDueDate.textContent = eachTask.date;
-    newExtras.appendChild(newDueDate);
+    if (eachTask.date !== "") {
+      const newDueDate = document.createElement("span");
+      newDueDate.textContent = eachTask.date;
+      newExtras.appendChild(newDueDate);
+    }
+
     // New priority
     const newPriority = document.createElement("span");
     newPriority.textContent = `PRIORITY: ${eachTask.priority}`;
     newExtras.appendChild(newPriority);
+
+    newTask.appendChild(newExtras);
+
+    // Place notes
+    if (eachTask.notes !== "") {
+      const setNotes = document.createElement("div");
+      setNotes.textContent = eachTask.notes;
+      setNotes.classList.add("myNotes");
+      const idNote = "";
+      setNotes.setAttribute("id", idNote);
+      newTask.appendChild(setNotes);
+    }
 
     // New task setting
     const newSetting = document.createElement("div");
@@ -166,10 +176,6 @@ function domShowTasks(myTasks) {
 
     newSetting.appendChild(removeTask);
 
-    myContainer.appendChild(newTask);
-    newTask.appendChild(newTitle);
-    newTask.appendChild(newExtras);
-    newTask.appendChild(setNotes);
     newTask.appendChild(newSetting);
 
     myContainer.appendChild(newTask);

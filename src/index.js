@@ -23,7 +23,7 @@ const nameProjectSampleOne = sampleProjectOne.getProjectName();
 console.log("name project ", nameProjectSampleOne);
 
 myProjects.push(sampleProjectOne);
-sampleProjectOne.addTask("Read a 90 book", "33", "low", "ss");
+sampleProjectOne.addTask("Read a 90 book", "3/3/2024", "low", "ss");
 sampleProjectOne.addTask("Read An Empty 0 House");
 
 console.log("first sample object", sampleProjectOne);

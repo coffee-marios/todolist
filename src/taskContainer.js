@@ -1,7 +1,6 @@
-import { activeProject, chosenTask, setChosenTask } from "./projects.js";
+import { activeProject, setChosenTask } from "./projects.js";
 import { editTaskForm } from "./forms.js";
 import { domShowTasks } from "./projectsDom.js";
-// const nameTaskId = createNewId();
 
 function clickEditTask(event) {
   // it displays the form for editing
@@ -47,9 +46,13 @@ function formAddTaskMethod() {
   // Adds the task to the project
   const myFormTask = document.getElementById("addTaskForm");
   const taskData = getFormDataTask(myFormTask);
-  // const nameId = activeProject.getTaskId() + 1; //  nameTaskId() + "task";
 
   const [{ name, date, priority, notes }] = taskData;
+
+  // We don't want tasks without a 'name' (description)
+  if (name == "") {
+    return;
+  }
 
   activeProject.addTask(name, date, priority, notes);
 
@@ -217,5 +220,4 @@ export {
   editTaskForm,
   getFormDataTask,
   clickEditTask,
-  domShowTasks,
 };
