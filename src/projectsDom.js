@@ -51,12 +51,34 @@ function elementProject(nameProjectDom, keyProject) {
 
   // The option to remove it
   const removeProjectButton = document.createElement("button");
-  newProject.classList.add("removeProjects");
-  removeProjectButton.textContent = "Delete";
+  let buttonRemoveDisplay = projectName + "Button";
+
+  removeProjectButton.setAttribute("id", buttonRemoveDisplay);
+  removeProjectButton.classList.add("removeProjects", "hideRemoveButton");
+  removeProjectButton.textContent = "X";
   removeProjectButton.addEventListener("click", () => {
     removeProject(projectDiv);
   });
   projectDiv.appendChild(removeProjectButton);
+
+  projectDiv.addEventListener(
+    "mouseover",
+    () => {
+      console.log(33);
+      removeProjectButton.classList.remove("hideRemoveButton");
+    },
+    false
+  );
+
+  projectDiv.addEventListener(
+    "mouseout",
+    () => {
+      console.log(343);
+      removeProjectButton.classList.add("hideRemoveButton");
+    },
+    false
+  );
+
   return projectDiv;
 }
 
@@ -133,7 +155,7 @@ function domShowTasks(myTasks) {
     // Remove task
     const removeTask = document.createElement("button");
     removeTask.classList.add("removeTask");
-    removeTask.textContent = "Remove";
+    removeTask.textContent = "Delete";
     removeTask.addEventListener(
       "click",
       () => {

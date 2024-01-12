@@ -996,13 +996,28 @@ body {
     background-color: azure;
 }
 
+.projectsUnit {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    place-items: center;
+
+}
 
 .buttonProjects,
 .activeProject {
-    /* display: block; */
+    grid-column: 2 / span 5;
+    place-self: stretch;
     background-color: cyan;
-    margin: 8px auto;
+    margin: 8px;
     padding: 8px;
+
+}
+
+.removeProjects {
+    grid-column: 7 / 8;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
 
 }
 
@@ -1011,19 +1026,20 @@ body {
     color: white;
 }
 
-
-
-
-
-.projectsUnit {
-    display: block;
+#listProjects {
+    text-align: center;
 }
 
+
+.hideRemoveButton {
+    display: none;
+}
 
 
 #startProjectButton {
     display: block;
 }
+
 
 
 
@@ -1155,7 +1171,7 @@ label[for="textAreaTask"] {
 }
 
 
-.removeTask {
+/* .removeTask {
     background-color: red;
     color: white;
-}
+} */

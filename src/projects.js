@@ -17,6 +17,9 @@ function setActiveProject(setProject) {
     let projectName = activeProject.getProjectName();
     let projectId = document.getElementById(projectName);
     projectId.classList.remove("activeProject");
+    //let buttonRemovalId = projectName + "Button";
+    //let buttonRemove = document.getElementById(buttonRemovalId);
+    //buttonRemove.classList.remove("hideRemoveButton");
   }
 
   activeProject = setProject;
@@ -25,6 +28,9 @@ function setActiveProject(setProject) {
 
   if (_projectId !== null) {
     _projectId.classList.add("activeProject");
+    //let _buttonRemovalId = _projectName + "Button";
+    //let _buttonRemove = document.getElementById(_buttonRemovalId);
+    //_buttonRemove.classList.add("hideRemoveButton");
   }
 }
 
