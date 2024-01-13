@@ -95,13 +95,13 @@ function editTaskForm() {
   const inputPriorityHigh = document.createElement("input");
   inputPriorityHigh.setAttribute("class", "inputPriorityEdit");
   inputPriorityHigh.setAttribute("id", "highPriorityEdit");
-  inputPriorityHigh.setAttribute("value", "high");
+  inputPriorityHigh.setAttribute("value", "HIGH");
 
   inputPriorityHigh.type = "radio";
   inputPriorityHigh.name = "priority";
 
   const labelPriorityHigh = document.createElement("label");
-  labelPriorityHigh.textContent = "High";
+  labelPriorityHigh.textContent = "HIGH";
   labelPriorityHigh.setAttribute("class", "labelPriorityEdit");
   labelPriorityHigh.setAttribute("for", "highPriorityEdit");
 
@@ -109,13 +109,13 @@ function editTaskForm() {
   const inputPriorityMedium = document.createElement("input");
   inputPriorityMedium.setAttribute("class", "inputPriorityEdit");
   inputPriorityMedium.setAttribute("id", "mediumPriorityEdit");
-  inputPriorityMedium.setAttribute("value", "medium");
+  inputPriorityMedium.setAttribute("value", "MEDIUM");
 
   inputPriorityMedium.type = "radio";
   inputPriorityMedium.name = "priority";
 
   const labelPriorityMedium = document.createElement("label");
-  labelPriorityMedium.textContent = "Medium";
+  labelPriorityMedium.textContent = "MEDIUM";
   labelPriorityMedium.setAttribute("class", "labelPriorityEdit");
   labelPriorityMedium.setAttribute("for", "mediumPriorityEdit");
 
@@ -123,13 +123,13 @@ function editTaskForm() {
   const inputPriorityLow = document.createElement("input");
   inputPriorityLow.setAttribute("class", "inputPriorityEdit");
   inputPriorityLow.setAttribute("id", "lowPriorityEdit");
-  inputPriorityLow.setAttribute("value", "low");
+  inputPriorityLow.setAttribute("value", "LOW");
 
   inputPriorityLow.type = "radio";
   inputPriorityLow.name = "priority";
 
   const labelPriorityLow = document.createElement("label");
-  labelPriorityLow.textContent = "Low";
+  labelPriorityLow.textContent = "LOW";
   labelPriorityLow.setAttribute("class", "labelPriorityEdit");
   labelPriorityLow.setAttribute("for", "lowPriorityEdit");
 

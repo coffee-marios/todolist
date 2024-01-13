@@ -117,6 +117,13 @@ function domShowTasks(myTasks) {
 
     newTask.appendChild(newExtras);
 
+    if (eachTask.priority == "HIGH") {
+      newTask.classList.add("taskUnitUrgent");
+    }
+    if (eachTask.priority == "MEDIUM") {
+      newTask.classList.add("taskUnitImportant");
+    }
+
     // Place notes
     if (eachTask.notes !== "") {
       const setNotes = document.createElement("div");
@@ -129,6 +136,7 @@ function domShowTasks(myTasks) {
 
     // New task setting
     const newSetting = document.createElement("div");
+    newSetting.classList.add("taskSettings");
 
     // Completed
     const completed = document.createElement("button");
@@ -177,8 +185,6 @@ function domShowTasks(myTasks) {
     newSetting.appendChild(removeTask);
 
     newTask.appendChild(newSetting);
-
-    myContainer.appendChild(newTask);
   }
 }
 

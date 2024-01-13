@@ -23,7 +23,7 @@ const nameProjectSampleOne = sampleProjectOne.getProjectName();
 console.log("name project ", nameProjectSampleOne);
 
 myProjects.push(sampleProjectOne);
-sampleProjectOne.addTask("Read a 90 book", "3/3/2024", "low", "ss");
+sampleProjectOne.addTask("Read a 90 book", "3/3/2024", "LOW", "ss");
 sampleProjectOne.addTask("Read An Empty 0 House");
 
 console.log("first sample object", sampleProjectOne);
@@ -34,7 +34,7 @@ const sampleProjectNext = createProject("project2");
 const sampleProjectTwo = myProjectMethods(sampleProjectNext);
 
 const nameProjectSampleTwo = sampleProjectTwo.getProjectName();
-sampleProjectTwo.addTask("Read a great book", "3d3", "high", "sas");
+sampleProjectTwo.addTask("Read a great book", "3d3", "HIGH", "sas");
 myProjects.push(sampleProjectTwo);
 // console.log(myProjects);
 

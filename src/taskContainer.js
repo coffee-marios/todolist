@@ -136,13 +136,13 @@ function addTaskForm() {
   const inputPriorityHigh = document.createElement("input");
   inputPriorityHigh.setAttribute("class", "inputPriority");
   inputPriorityHigh.setAttribute("id", "highPriority");
-  inputPriorityHigh.setAttribute("value", "high");
+  inputPriorityHigh.setAttribute("value", "HIGH");
 
   inputPriorityHigh.type = "radio";
   inputPriorityHigh.name = "priority";
 
   const labelPriorityHigh = document.createElement("label");
-  labelPriorityHigh.textContent = "High";
+  labelPriorityHigh.textContent = "HIGH";
   labelPriorityHigh.setAttribute("class", "labelPriority");
   labelPriorityHigh.setAttribute("for", "highPriority");
 
@@ -150,13 +150,13 @@ function addTaskForm() {
   const inputPriorityMedium = document.createElement("input");
   inputPriorityMedium.setAttribute("class", "inputPriority");
   inputPriorityMedium.setAttribute("id", "mediumPriority");
-  inputPriorityMedium.setAttribute("value", "medium");
+  inputPriorityMedium.setAttribute("value", "MEDIUM");
 
   inputPriorityMedium.type = "radio";
   inputPriorityMedium.name = "priority";
 
   const labelPriorityMedium = document.createElement("label");
-  labelPriorityMedium.textContent = "Medium";
+  labelPriorityMedium.textContent = "MEDIUM";
   labelPriorityMedium.setAttribute("class", "labelPriority");
   labelPriorityMedium.setAttribute("for", "mediumPriority");
 
@@ -164,13 +164,14 @@ function addTaskForm() {
   const inputPriorityLow = document.createElement("input");
   inputPriorityLow.setAttribute("class", "inputPriority");
   inputPriorityLow.setAttribute("id", "lowPriority");
-  inputPriorityLow.setAttribute("value", "low");
+  inputPriorityLow.setAttribute("value", "LOW");
+  inputPriorityLow.checked = true;
 
   inputPriorityLow.type = "radio";
   inputPriorityLow.name = "priority";
 
   const labelPriorityLow = document.createElement("label");
-  labelPriorityLow.textContent = "Low";
+  labelPriorityLow.textContent = "LOW";
   labelPriorityLow.setAttribute("class", "labelPriority");
   labelPriorityLow.setAttribute("for", "lowPriority");
 

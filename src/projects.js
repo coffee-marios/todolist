@@ -92,7 +92,7 @@ function myProjectMethods(myProject) {
 
       console.log("TASK", getTask);
     },
-    addTask: function (name, date = "dd/mm/yy", priority = "low", notes = "") {
+    addTask: function (name, date = "02/mm/yy", priority = "LOW", notes = "") {
       let taskId = assignTaskId();
 
       let nameIdTask = "task" + taskId;
