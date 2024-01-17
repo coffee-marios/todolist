@@ -17,10 +17,7 @@ import { editTaskForm } from "./forms.js";
 const sampleProject = createProject("project1");
 const sampleProjectOne = myProjectMethods(sampleProject);
 
-console.log("index sample object", sampleProjectOne);
-
 const nameProjectSampleOne = sampleProjectOne.getProjectName();
-console.log("name project ", nameProjectSampleOne);
 
 myProjects.push(sampleProjectOne);
 sampleProjectOne.addTask("Read a 90 book", "3/3/2024", "LOW", "ss");
@@ -36,7 +33,6 @@ const sampleProjectTwo = myProjectMethods(sampleProjectNext);
 const nameProjectSampleTwo = sampleProjectTwo.getProjectName();
 sampleProjectTwo.addTask("Read a great book", "3d3", "HIGH", "sas");
 myProjects.push(sampleProjectTwo);
-// console.log(myProjects);
 
 const createElementSampleOne = elementProject(
   nameProjectSampleOne,
@@ -130,3 +126,15 @@ showTasks(sampleProjectOne);
 addTask.addEventListener("click", () => {
   clickAddTask(activeProject);
 });
+
+if (!localStorage.getItem("listProjects")) {
+  localStorage.setItem(
+    "localProjects",
+    document.getElementById("listProjects")
+  );
+  console.log(listOfProjects);
+
+  console.log("STORAGE", localStorage.getItem("listProjects"));
+} else {
+  console.log(true);
+}

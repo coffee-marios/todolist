@@ -82,7 +82,6 @@ function elementProject(nameProjectDom, keyProject) {
 
 function domShowTasks(myTasks) {
   //console.clear();
-  console.log(chosenTask);
 
   const myContainer = document.getElementById("taskContainerId");
   myContainer.replaceChildren();

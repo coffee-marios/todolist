@@ -1,4 +1,13 @@
 import { elementProject, domShowTasks } from "./projectsDom.js";
+import { storageAvailable } from "./storage.js";
+
+if (storageAvailable("localStorage")) {
+  // Yippee! We can use localStorage awesomeness
+  console.log("We can use localStorage");
+} else {
+  // Too bad, no localStorage for us
+  console.log("We can not use localStorage");
+}
 
 let activeProject;
 let chosenTask;
@@ -8,9 +17,7 @@ function setChosenTask(task) {
 }
 
 function setActiveProject(setProject) {
-  console.clear();
-
-  console.log("A", activeProject);
+  //console.clear();
 
   // We set the active project and change the color of the button
   if (activeProject !== undefined) {
