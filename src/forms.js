@@ -1,5 +1,6 @@
 import { activeProject, chosenTask, showTasks } from "./projects.js";
 import { getFormDataTask } from "./taskContainer.js";
+import { storageAvailable } from "./storage.js";
 
 function submitEditTask() {
   // runs when the form is sub
@@ -34,6 +35,11 @@ function submitEditTask() {
 
   // Edit the data
   activeProject.modifyTask(chosenTask, taskDataEdit[0]);
+
+  if (storageAvailable("localStorage")) {
+    let idProject = activeProject.getProjectId();
+    localStorage.setItem(idProject, JSON.stringify(activeProject));
+  }
 
   document.getElementById("editTaskDiv").style.display = "none";
   showTasks(activeProject);

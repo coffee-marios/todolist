@@ -7,6 +7,7 @@ import {
   setChosenTask,
 } from "./projects.js";
 import { clickEditTask } from "./taskContainer.js";
+import { storageAvailable } from "./storage.js";
 
 function removeProject(project) {
   console.log(project);
@@ -16,6 +17,10 @@ function removeProject(project) {
 function clickRemoveTask(event) {
   setChosenTask(event);
   activeProject.deleteTask(chosenTask);
+  if (storageAvailable("localStorage")) {
+    let idProject = activeProject.getProjectId();
+    localStorage.setItem(idProject, JSON.stringify(activeProject));
+  }
 }
 
 function setCompleted(event, buttonCompletion) {
@@ -30,6 +35,10 @@ function setCompleted(event, buttonCompletion) {
   }
 
   activeProject.endTask(chosenTask, completed);
+  if (storageAvailable("localStorage")) {
+    let idProject = activeProject.getProjectId();
+    localStorage.setItem(idProject, JSON.stringify(activeProject));
+  }
 }
 
 function elementProject(nameProjectDom, keyProject) {

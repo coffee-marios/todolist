@@ -9,6 +9,7 @@ function clickEditTask(event) {
   // console.clear();
 
   setChosenTask(event);
+
   // console.log("Chosen task: ", chosenTask);
   const editTaskDiv = document.getElementById("editTaskDiv");
   const editForm = document.getElementById("editTaskForm");
