@@ -25,4 +25,12 @@ function storageAvailable(type) {
   }
 }
 
+// function storeProject(name, myProject) {
+//   localStorage.setItem(name, JSON.stringify(myProject));
+// }
+
+// function storeActiveProject(name, myProject){
+//   localStorage.setItem(name, myProject);
+// }
+
 export { storageAvailable };

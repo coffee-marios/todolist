@@ -39,8 +39,9 @@ function elementProject(nameProjectDom, keyProject) {
   // The project
   const newProject = document.createElement("button");
   newProject.classList.add("buttonProjects");
-  let projectName = keyProject.getProjectName();
-  newProject.setAttribute("id", projectName);
+  let projectId = keyProject.getProjectId();
+  console.log("pr id ", projectId);
+  newProject.setAttribute("id", projectId);
 
   newProject.textContent = nameProjectDom;
   console.log("Element project", keyProject);
@@ -51,7 +52,7 @@ function elementProject(nameProjectDom, keyProject) {
 
   // The option to remove it
   const removeProjectButton = document.createElement("button");
-  let buttonRemoveDisplay = projectName + "Button";
+  let buttonRemoveDisplay = projectId + "Button";
 
   removeProjectButton.setAttribute("id", buttonRemoveDisplay);
   removeProjectButton.classList.add("removeProjects", "hideRemoveButton");
@@ -200,6 +201,15 @@ function renderProjects() {
 
   const listProjects = document.createElement("div");
   listProjects.setAttribute("id", "listProjects");
+
+  // if (storageAvailable("localStorage")) {
+  //   storeProject("localListProjects", listProjects);
+  //   let localProjectList = localStorage.getItem("localListProjects");
+
+  // }
+
+  console.log("list projects", typeof listProjects);
+
   myProjects.appendChild(listProjects);
 
   const addProject = document.createElement("button");

@@ -1,14 +1,6 @@
 import { elementProject, domShowTasks } from "./projectsDom.js";
 import { storageAvailable } from "./storage.js";
 
-if (storageAvailable("localStorage")) {
-  // Yippee! We can use localStorage awesomeness
-  console.log("We can use localStorage");
-} else {
-  // Too bad, no localStorage for us
-  console.log("We can not use localStorage");
-}
-
 let activeProject;
 let chosenTask;
 
@@ -21,19 +13,23 @@ function setActiveProject(setProject) {
 
   // We set the active project and change the color of the button
   if (activeProject !== undefined) {
-    let projectName = activeProject.getProjectName();
-    let projectId = document.getElementById(projectName);
-    if (projectId !== null) {
-      projectId.classList.remove("activeProject");
+    let projectId = activeProject.getProjectId();
+    let elementId = document.getElementById(projectId);
+    if (elementId !== null) {
+      elementId.classList.remove("activeProject");
     }
   }
-
   activeProject = setProject;
-  let _projectName = activeProject.getProjectName();
-  let _projectId = document.getElementById(_projectName);
 
-  if (_projectId !== null) {
-    _projectId.classList.add("activeProject");
+  if (storageAvailable("localStorage") && activeProject !== undefined) {
+    let newProjectId = setProject.getProjectId();
+    localStorage.setItem("ActiveProject", newProjectId);
+  }
+  let _projectId = activeProject.getProjectId();
+  let _elementId = document.getElementById(_projectId);
+
+  if (_elementId !== null) {
+    _elementId.classList.add("activeProject");
   }
 }
 
@@ -41,13 +37,16 @@ function setActiveProject(setProject) {
 const myProjects = [];
 
 function createProject(name) {
-  return { name, taskList: {} };
+  return { name, taskList: {}, id: "project" + assignProjectId() };
 }
 
 // The argument will be the instantiation of createProject
 function myProjectMethods(myProject) {
   return {
     ...myProject,
+    getProjectId: function () {
+      return this.id;
+    },
     getTaskId: function () {
       return this.taskId;
     },
@@ -119,7 +118,7 @@ function showTasks(projectL) {
   console.log("Show: ", projectL);
 
   setActiveProject(projectL);
-  console.log("Active project: ", projectL.getProjectName());
+  console.log("Active project: ", projectL.getProjectId());
 
   console.log("project: ", projectL);
   let myProtoTasks = null;
@@ -143,10 +142,22 @@ function clickAddProject(event) {
 
   const newTitle = myForm["name"].value;
   if (newTitle !== "") {
-    let getId = assignProjectId();
-    let keyProject = getId + "project";
-    const newProjectEmpty = createProject(keyProject);
-    const newProject = myProjectMethods(newProjectEmpty);
+    const newProjectEmpty = createProject(newTitle);
+
+    let newProject;
+
+    if (storageAvailable("localStorage")) {
+      newProject = myProjectMethods(newProjectEmpty);
+      let projectId = newProject.getProjectId();
+      localStorage.setItem(projectId, JSON.stringify(newProjectEmpty));
+      let allStoredProjects = localStorage.getItem("localProjects");
+      let parsedProjects = JSON.parse(allStoredProjects);
+      parsedProjects.allProjects.push(projectId);
+      localStorage.setItem("localProjects", JSON.stringify(parsedProjects));
+    } else {
+      newProject = myProjectMethods(newProjectEmpty);
+    }
+
     appendProject(newTitle, newProject);
   }
 }
@@ -191,14 +202,18 @@ const createNewId = () => {
 const assignProjectId = createNewId();
 const assignTaskId = createNewId();
 
-function appendProject(newProject, keyProject) {
+function appendProject(newProjectTitle, keyProject) {
   const listProjects = document.getElementById("listProjects");
-  const titleProject = elementProject(newProject, keyProject);
-
-  listProjects.appendChild(titleProject);
+  const titleProject = elementProject(newProjectTitle, keyProject);
 
   setActiveProject(keyProject);
   showTasks(keyProject);
+  if (storageAvailable("localStorage")) {
+    localStorage.setItem(newProjectTitle, JSON.stringify(keyProject));
+    listProjects.appendChild(titleProject);
+  } else {
+    listProjects.appendChild(titleProject);
+  }
 }
 
 export {
