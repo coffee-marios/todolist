@@ -1,6 +1,7 @@
 import { activeProject, setChosenTask } from "./projects.js";
 import { editTaskForm } from "./forms.js";
 import { domShowTasks } from "./projectsDom.js";
+import { storageAvailable } from "./storage.js";
 
 function clickEditTask(event) {
   // it displays the form for editing
@@ -55,6 +56,11 @@ function formAddTaskMethod() {
   }
 
   activeProject.addTask(name, date, priority, notes);
+
+  if (storageAvailable("localStorage")) {
+    let idProject = activeProject.getProjectId();
+    localStorage.setItem(idProject, JSON.stringify(activeProject));
+  }
 
   let myProtoTasks = null;
   myProtoTasks = activeProject.getTaskList();
