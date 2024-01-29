@@ -25,7 +25,7 @@ let nameProjectSampleTwo;
 let createElementSampleOne;
 let createElementSampleTwo;
 
-// Project one
+// Project one (initial project)
 
 if (storageAvailable("localStorage")) {
   stateUser = localStorage.getItem("stateApplication");
@@ -226,6 +226,23 @@ if (!storageAvailable("localStorage")) {
   listOfProjects.appendChild(createElementSampleOne);
   listOfProjects.appendChild(createElementSampleTwo);
   showTasks(sampleProjectOne);
+}
+
+// What happens when you refresh the page
+if (storageAvailable("localStorage")) {
+  let activeProjectName = localStorage.getItem("ActiveProject");
+  if (activeProjectName !== null) {
+    let activeProject = localStorage.getItem(activeProjectName);
+    // To use the object's methods
+    let activeProjectObject = myProjectMethods(JSON.parse(activeProject));
+    setActiveProject(activeProjectObject);
+    let activeProjectTasks = activeProjectObject.getTaskList();
+
+    if (activeProjectTasks !== {}) {
+      console.log("tasks: ", activeProjectTasks);
+      showTasks(activeProjectObject);
+    }
+  }
 }
 
 addTask.addEventListener("click", () => {

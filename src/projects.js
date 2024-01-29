@@ -27,7 +27,7 @@ function setActiveProject(setProject) {
   }
   let _projectId = activeProject.getProjectId();
   let _elementId = document.getElementById(_projectId);
-
+  console.log("active", _elementId);
   if (_elementId !== null) {
     _elementId.classList.add("activeProject");
   }

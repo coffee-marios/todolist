@@ -94,8 +94,9 @@ function domShowTasks(myTasks) {
   //console.clear();
 
   const myContainer = document.getElementById("taskContainerId");
-  myContainer.replaceChildren();
-  console.log("myTasks dom, ", myTasks);
+  if (myContainer !== null) {
+    myContainer.replaceChildren();
+  }
 
   for (const eachTask of myTasks) {
     const newTask = document.createElement("div");
