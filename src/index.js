@@ -16,7 +16,7 @@ let stateUser;
 
 // Create the sample projects that will add at the end
 
-const sampleProject = createProject("project1");
+let sampleProject;
 
 let sampleProjectOne;
 let sampleProjectTwo;
@@ -31,6 +31,7 @@ if (storageAvailable("localStorage")) {
   stateUser = localStorage.getItem("stateApplication");
 
   if (stateUser == null) {
+    sampleProject = createProject("project1");
     let allLocalProjects = { allProjects: [] };
     localStorage.setItem("localProjects", JSON.stringify(allLocalProjects));
     localStorage.setItem("project1", JSON.stringify(sampleProject));
@@ -43,7 +44,6 @@ if (storageAvailable("localStorage")) {
     let firstProjectId = sampleProjectOne.getProjectId();
     parsedProjects.allProjects.push(firstProjectId);
     localStorage.setItem("localProjects", JSON.stringify(parsedProjects));
-    console.log("arrray", parsedProjects.allProjects);
   }
 }
 if (!storageAvailable("localStorage")) {
@@ -66,10 +66,11 @@ if (!storageAvailable("localStorage") | (stateUser == null)) {
 }
 
 // Project two
-const sampleProjectNext = createProject("project2");
+let sampleProjectNext;
 
 if (storageAvailable("localStorage")) {
   if (stateUser == null) {
+    sampleProjectNext = createProject("project2");
     localStorage.setItem("project2", JSON.stringify(sampleProjectNext));
     let localProject2 = localStorage.getItem("project2");
     sampleProjectTwo = myProjectMethods(JSON.parse(localProject2));
@@ -184,7 +185,6 @@ const listOfProjects = document.getElementById("listProjects");
 
 if (storageAvailable("localStorage")) {
   // Is it the first time we run the application?
-  // We want to show some initial projects for the first time
 
   if (stateUser !== null) {
     // Update the value
@@ -206,16 +206,12 @@ if (storageAvailable("localStorage")) {
         listOfProjects.appendChild(createElement);
       }
     }
-
-    console.log("I want to stay.", objectLocalProjects.allProjects);
   }
 
   // First time user
   if (stateUser == null) {
     stateUser = "default";
     localStorage.setItem("stateApplication", stateUser);
-
-    console.log("user", stateUser);
     listOfProjects.appendChild(createElementSampleOne);
     listOfProjects.appendChild(createElementSampleTwo);
     showTasks(sampleProjectOne);
@@ -231,14 +227,15 @@ if (!storageAvailable("localStorage")) {
 // What happens when you refresh the page
 if (storageAvailable("localStorage")) {
   let activeProjectName = localStorage.getItem("ActiveProject");
-  if (activeProjectName !== null) {
+  console.log(activeProjectName, "helllo");
+  if (activeProjectName !== null && activeProjectName !== "justDeleted") {
     let activeProject = localStorage.getItem(activeProjectName);
     // To use the object's methods
     let activeProjectObject = myProjectMethods(JSON.parse(activeProject));
     setActiveProject(activeProjectObject);
     let activeProjectTasks = activeProjectObject.getTaskList();
 
-    if (activeProjectTasks !== {}) {
+    if (activeProjectTasks !== {} && activeProjectName !== "justDeleted") {
       console.log("tasks: ", activeProjectTasks);
       showTasks(activeProjectObject);
     }

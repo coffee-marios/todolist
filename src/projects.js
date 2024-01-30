@@ -193,8 +193,17 @@ function addProjectFunction() {
 
 const createNewId = () => {
   let idProject = 0;
+  if (storageAvailable("localStorage")) {
+    let localId = localStorage.getItem("lastId");
+
+    if (localId !== null) {
+      idProject = localId;
+    }
+  }
+
   return () => {
     idProject++;
+    localStorage.setItem("lastId", idProject);
     return idProject;
   };
 };
@@ -208,12 +217,7 @@ function appendProject(newProjectTitle, keyProject) {
 
   setActiveProject(keyProject);
   showTasks(keyProject);
-  if (storageAvailable("localStorage")) {
-    localStorage.setItem(newProjectTitle, JSON.stringify(keyProject));
-    listProjects.appendChild(titleProject);
-  } else {
-    listProjects.appendChild(titleProject);
-  }
+  listProjects.appendChild(titleProject);
 }
 
 export {

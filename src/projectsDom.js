@@ -10,7 +10,32 @@ import { clickEditTask } from "./taskContainer.js";
 import { storageAvailable } from "./storage.js";
 
 function removeProject(project) {
-  console.log(project);
+  if (storageAvailable("localStorage")) {
+    let localProjects = localStorage.getItem("localProjects");
+    let parsedLocalTasks = JSON.parse(localProjects);
+    let projectId = project.firstChild.id;
+    let projectsArray = parsedLocalTasks.allProjects;
+    console.log(projectsArray);
+
+    const arrayWithoutRemovedProject = projectsArray.filter(function (project) {
+      return project !== projectId;
+    });
+    let allLocalProjects = { allProjects: arrayWithoutRemovedProject };
+
+    localStorage.setItem("localProjects", JSON.stringify(allLocalProjects));
+
+    let activeProject = localStorage.getItem("ActiveProject");
+    if (activeProject == projectId) {
+      localStorage.setItem("ActiveProject", "justDeleted");
+    }
+
+    console.log("filter", arrayWithoutRemovedProject);
+
+    localStorage.removeItem(projectId);
+  }
+
+  //
+
   project.remove();
 }
 
