@@ -9,27 +9,32 @@ function setChosenTask(task) {
 }
 
 function setActiveProject(setProject) {
-  //console.clear();
-
+  let projectId;
+  let elementId;
   // We set the active project and change the color of the button
   if (activeProject !== undefined) {
-    let projectId = activeProject.getProjectId();
-    let elementId = document.getElementById(projectId);
-    if (elementId !== null) {
-      elementId.classList.remove("activeProject");
-    }
+    projectId = activeProject.getProjectId();
   }
+
+  if (projectId !== undefined) {
+    console.log("projectId", projectId);
+    elementId = document.getElementById(projectId);
+  }
+
+  if (elementId !== null && elementId !== undefined) {
+    elementId.classList.remove("activeProject");
+  }
+
   activeProject = setProject;
 
-  if (storageAvailable("localStorage") && activeProject !== undefined) {
-    let newProjectId = setProject.getProjectId();
-    localStorage.setItem("ActiveProject", newProjectId);
+  let new_projectId = setProject.getProjectId();
+  let new_elementId = document.getElementById(new_projectId);
+  if (new_elementId != null) {
+    new_elementId.classList.add("activeProject");
   }
-  let _projectId = activeProject.getProjectId();
-  let _elementId = document.getElementById(_projectId);
-  console.log("active", _elementId);
-  if (_elementId !== null) {
-    _elementId.classList.add("activeProject");
+
+  if (storageAvailable("localStorage") && new_projectId !== undefined) {
+    localStorage.setItem("ActiveProject", new_projectId);
   }
 }
 
@@ -144,21 +149,21 @@ function clickAddProject(event) {
   if (newTitle !== "") {
     const newProjectEmpty = createProject(newTitle);
 
-    let newProject;
+    let newProject = myProjectMethods(newProjectEmpty);
 
     if (storageAvailable("localStorage")) {
-      newProject = myProjectMethods(newProjectEmpty);
       let projectId = newProject.getProjectId();
       localStorage.setItem(projectId, JSON.stringify(newProjectEmpty));
       let allStoredProjects = localStorage.getItem("localProjects");
       let parsedProjects = JSON.parse(allStoredProjects);
       parsedProjects.allProjects.push(projectId);
       localStorage.setItem("localProjects", JSON.stringify(parsedProjects));
-    } else {
-      newProject = myProjectMethods(newProjectEmpty);
     }
 
     appendProject(newTitle, newProject);
+    // } else {
+    //   newProject = myProjectMethods(newProjectEmpty);
+    // }
   }
 }
 
@@ -214,10 +219,11 @@ const assignTaskId = createNewId();
 function appendProject(newProjectTitle, keyProject) {
   const listProjects = document.getElementById("listProjects");
   const titleProject = elementProject(newProjectTitle, keyProject);
+  console.log("append", keyProject);
 
-  setActiveProject(keyProject);
   showTasks(keyProject);
   listProjects.appendChild(titleProject);
+  setActiveProject(keyProject);
 }
 
 export {

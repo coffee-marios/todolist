@@ -74,11 +74,10 @@ function elementProject(nameProjectDom, keyProject) {
   const newProject = document.createElement("button");
   newProject.classList.add("buttonProjects");
   let projectId = keyProject.getProjectId();
-  console.log("pr id ", projectId);
   newProject.setAttribute("id", projectId);
 
   newProject.textContent = nameProjectDom;
-  console.log("Element project", keyProject);
+
   newProject.addEventListener("click", () => {
     showTasks(keyProject);
   });
@@ -116,8 +115,6 @@ function elementProject(nameProjectDom, keyProject) {
 }
 
 function domShowTasks(myTasks) {
-  //console.clear();
-
   const myContainer = document.getElementById("taskContainerId");
   if (myContainer !== null) {
     myContainer.replaceChildren();

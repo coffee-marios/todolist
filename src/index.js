@@ -227,16 +227,23 @@ if (!storageAvailable("localStorage")) {
 // What happens when you refresh the page
 if (storageAvailable("localStorage")) {
   let activeProjectName = localStorage.getItem("ActiveProject");
-  console.log(activeProjectName, "helllo");
+
   if (activeProjectName !== null && activeProjectName !== "justDeleted") {
     let activeProject = localStorage.getItem(activeProjectName);
+
     // To use the object's methods
-    let activeProjectObject = myProjectMethods(JSON.parse(activeProject));
+    let parsedActive = JSON.parse(activeProject);
+    let activeProjectObject = myProjectMethods(parsedActive);
+
     setActiveProject(activeProjectObject);
     let activeProjectTasks = activeProjectObject.getTaskList();
 
-    if (activeProjectTasks !== {} && activeProjectName !== "justDeleted") {
-      console.log("tasks: ", activeProjectTasks);
+    if (
+      activeProject !== null &&
+      activeProject !== undefined &&
+      activeProjectTasks !== {} &&
+      activeProjectName !== "justDeleted"
+    ) {
       showTasks(activeProjectObject);
     }
   }
