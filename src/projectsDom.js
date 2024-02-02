@@ -15,7 +15,6 @@ function removeProject(project) {
     let parsedLocalTasks = JSON.parse(localProjects);
     let projectId = project.firstChild.id;
     let projectsArray = parsedLocalTasks.allProjects;
-    console.log(projectsArray);
 
     const arrayWithoutRemovedProject = projectsArray.filter(function (project) {
       return project !== projectId;
@@ -29,12 +28,8 @@ function removeProject(project) {
       localStorage.setItem("ActiveProject", "justDeleted");
     }
 
-    console.log("filter", arrayWithoutRemovedProject);
-
     localStorage.removeItem(projectId);
   }
-
-  //
 
   project.remove();
 }
@@ -50,7 +45,7 @@ function clickRemoveTask(event) {
 
 function setCompleted(event, buttonCompletion) {
   setChosenTask(event);
-  console.clear();
+
   let { completed } = event;
   completed = !completed;
   if (completed == false) {
@@ -181,7 +176,6 @@ function domShowTasks(myTasks) {
       false
     );
     if (eachTask["completed"]) {
-      //console.log("myTasks dom, ", true);
       newTask.classList.add("taskCompleted");
       completed.textContent = "Closed";
     }
@@ -233,14 +227,6 @@ function renderProjects() {
 
   const listProjects = document.createElement("div");
   listProjects.setAttribute("id", "listProjects");
-
-  // if (storageAvailable("localStorage")) {
-  //   storeProject("localListProjects", listProjects);
-  //   let localProjectList = localStorage.getItem("localListProjects");
-
-  // }
-
-  console.log("list projects", typeof listProjects);
 
   myProjects.appendChild(listProjects);
 

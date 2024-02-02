@@ -6,11 +6,8 @@ import { storageAvailable } from "./storage.js";
 function clickEditTask(event) {
   // it displays the form for editing
 
-  // console.clear();
-
   setChosenTask(event);
 
-  // console.log("Chosen task: ", chosenTask);
   const editTaskDiv = document.getElementById("editTaskDiv");
   const editForm = document.getElementById("editTaskForm");
 
@@ -33,15 +30,12 @@ function clickEditTask(event) {
       oldPriority[i].checked = true;
     }
   }
-  //console.log("Active project: ", activeProject);
 
   editTaskDiv.style.display = "block";
 }
 
 function clickAddTask() {
-  // console.clear();
   document.getElementById("addTaskDiv").style.display = "block";
-  console.log("Active project: ", activeProject);
 }
 
 function formAddTaskMethod() {
@@ -78,9 +72,6 @@ function getFormDataTask(whichForm) {
   let newImportance = myFormTask["priority"].value;
   const newNotes = myFormTask["textAreaTask"].value;
 
-  //console.clear();
-
-  console.log("Active project: ", activeProject);
   const taskSet = [
     { name: newTask, date: newDate, priority: newImportance, notes: newNotes },
   ];

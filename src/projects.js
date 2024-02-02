@@ -17,7 +17,6 @@ function setActiveProject(setProject) {
   }
 
   if (projectId !== undefined) {
-    console.log("projectId", projectId);
     elementId = document.getElementById(projectId);
   }
 
@@ -75,25 +74,14 @@ function myProjectMethods(myProject) {
       }
     },
     deleteTask: function (obsoleteTask) {
-      console.clear();
       let idTask = obsoleteTask["nameId"];
       delete this.taskList[idTask];
-      console.log(this.taskList);
+
       const myTasks = Object.values(this.taskList);
       domShowTasks(myTasks);
     },
     modifyTask: function (oldTask, newTask) {
-      //console.clear();
       let idTask = oldTask["nameId"];
-
-      let getTask = activeProject.getTaskList();
-      console.log("idTask", idTask);
-
-      console.log("old", oldTask, idTask);
-      console.log("new", newTask);
-      console.log("Task to change: ", chosenTask["nameId"]);
-      console.log(activeProject);
-      console.log("TASK CASE", this.taskList[idTask]);
       this.taskList[idTask] = newTask;
       this.taskList[idTask]["nameId"] = idTask;
     },
@@ -112,27 +100,18 @@ function myProjectMethods(myProject) {
 
       // Every task is a value whose key is nameIdTask
       this.taskList[nameIdTask] = internalTask;
-      console.log("PRIVATE task, ", this.taskList);
     },
   };
 }
 
 function showTasks(projectL) {
-  console.log("Show: ", projectL);
-
   setActiveProject(projectL);
-  console.log("Active project: ", projectL.getProjectId());
 
-  console.log("project: ", projectL);
   let myProtoTasks = null;
   myProtoTasks = projectL.getTaskList();
-  //console.clear();
+
   const myTasks = Object.values(myProtoTasks);
-  const nameId = activeProject.getTaskId() + 1;
-
-  console.log("myTasks: ", myTasks);
-
-  console.log("nameId, ", nameId);
+  // const nameId = activeProject.getTaskId() + 1;
 
   domShowTasks(myTasks);
 }
@@ -168,12 +147,15 @@ function clickAddProject(event) {
 function addProjectForm() {
   const addElementContainer = document.createElement("div");
   addElementContainer.setAttribute("id", "addProjectDiv");
+
   const projectForm = document.createElement("form");
   projectForm.setAttribute("id", "addProjectForm");
   addElementContainer.appendChild(projectForm);
+
   const labelProject = document.createElement("label");
   labelProject.textContent = "Project's name";
   labelProject.setAttribute("id", "labelProject");
+
   const nameProject = document.createElement("input");
   nameProject.setAttribute("id", "inputProject");
   nameProject.type = "text";
@@ -217,7 +199,6 @@ const assignTaskId = createNewId();
 function appendProject(newProjectTitle, keyProject) {
   const listProjects = document.getElementById("listProjects");
   const titleProject = elementProject(newProjectTitle, keyProject);
-  console.log("append", keyProject);
 
   showTasks(keyProject);
   listProjects.appendChild(titleProject);

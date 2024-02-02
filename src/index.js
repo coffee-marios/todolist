@@ -37,7 +37,7 @@ if (storageAvailable("localStorage")) {
     localStorage.setItem("project1", JSON.stringify(sampleProject));
     let localProject1 = localStorage.getItem("project1");
     sampleProjectOne = myProjectMethods(JSON.parse(localProject1));
-    console.log("sample", sampleProjectOne);
+
     // Push the project in the local storage
     let allStoredProjects = localStorage.getItem("localProjects");
     let parsedProjects = JSON.parse(allStoredProjects);
@@ -61,9 +61,7 @@ if (storageAvailable("localStorage") && stateUser == null) {
 }
 
 if (!storageAvailable("localStorage") | (stateUser == null)) {
-  console.log("pro", sampleProjectOne);
   setActiveProject(sampleProjectOne);
-  console.log("Active project: ", activeProject);
 }
 
 // Project two
@@ -82,7 +80,6 @@ if (storageAvailable("localStorage")) {
     let parsedProjects = JSON.parse(allStoredProjects);
     parsedProjects.allProjects.push(secondProjectId);
     localStorage.setItem("localProjects", JSON.stringify(parsedProjects));
-    console.log("all 2", parsedProjects);
   }
 }
 
@@ -197,13 +194,13 @@ if (storageAvailable("localStorage")) {
     let objectLocalProjects = JSON.parse(myLocalProjects);
 
     let numberLocalProjects = objectLocalProjects.allProjects.length;
-    console.log("number", objectLocalProjects.allProjects);
+
     if (numberLocalProjects > 0) {
       for (let i = 0; i < numberLocalProjects; i++) {
         let projectId = objectLocalProjects.allProjects[i];
         let myProject = localStorage.getItem(projectId);
         let myProjectParsed = JSON.parse(myProject);
-        console.log("for id", myProjectParsed);
+
         let projectObject = myProjectMethods(myProjectParsed);
         let nameProject = projectObject.getProjectName();
 

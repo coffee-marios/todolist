@@ -4,36 +4,13 @@ import { storageAvailable } from "./storage.js";
 
 function submitEditTask() {
   // runs when the form is sub
-  //console.clear();
   event.preventDefault();
-  //console.log("Chosen task: ", chosenTask);
-  //console.log(activeProject);
-  //activeProject.modifyTask(chosenTask);
-  //console.log("Chosen Task: ", chosenTask);
 
   // Edited data (the data that we submit as corrections)
   const formEdited = document.getElementById("editTaskForm");
   const taskDataEdit = getFormDataTask(formEdited);
 
-  // destructuring assignment (I want to avoid naming conflicts)
-  const [
-    {
-      name: nameEdit,
-      date: dateEdit,
-      priority: priorityEdit,
-      notes: notesEdit,
-    },
-  ] = taskDataEdit;
-
-  // Original data
-  const { name, date, priority, notes } = chosenTask;
-
-  console.log("Edit:");
-  console.log(nameEdit, dateEdit, priorityEdit, notesEdit);
-  console.log("Original:");
-  console.log(name, date, priority, notes);
-
-  // Edit the data
+  // Modify the data
   activeProject.modifyTask(chosenTask, taskDataEdit[0]);
 
   if (storageAvailable("localStorage")) {
