@@ -47,6 +47,7 @@ if (storageAvailable("localStorage")) {
   }
 }
 if (!storageAvailable("localStorage")) {
+  sampleProject = createProject("project1");
   sampleProjectOne = myProjectMethods(sampleProject);
 }
 
@@ -55,7 +56,7 @@ if (!storageAvailable("localStorage") | (stateUser == null)) {
   sampleProjectOne.addTask("Read An Empty 0 House");
 }
 
-if (!storageAvailable("localStorage") | (stateUser == null)) {
+if (storageAvailable("localStorage") && stateUser == null) {
   localStorage.setItem("project1", JSON.stringify(sampleProjectOne));
 }
 
@@ -83,7 +84,10 @@ if (storageAvailable("localStorage")) {
     localStorage.setItem("localProjects", JSON.stringify(parsedProjects));
     console.log("all 2", parsedProjects);
   }
-} else {
+}
+
+if (!storageAvailable("localStorage")) {
+  sampleProjectNext = createProject("project2");
   sampleProjectTwo = myProjectMethods(sampleProjectNext);
   nameProjectSampleTwo = sampleProjectTwo.getProjectName();
 }
@@ -91,7 +95,8 @@ if (storageAvailable("localStorage")) {
 if (!storageAvailable("localStorage") | (stateUser == null)) {
   sampleProjectTwo.addTask("Read a great book", "3d3", "HIGH", "sas");
 }
-if (!storageAvailable("localStorage") | (stateUser == null)) {
+
+if (storageAvailable("localStorage") && stateUser == null) {
   localStorage.setItem("project2", JSON.stringify(sampleProjectTwo));
 }
 

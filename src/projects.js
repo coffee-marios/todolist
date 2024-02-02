@@ -96,8 +96,6 @@ function myProjectMethods(myProject) {
       console.log("TASK CASE", this.taskList[idTask]);
       this.taskList[idTask] = newTask;
       this.taskList[idTask]["nameId"] = idTask;
-
-      console.log("TASK", getTask);
     },
     addTask: function (name, date = "02/mm/yy", priority = "LOW", notes = "") {
       let taskId = assignTaskId();
