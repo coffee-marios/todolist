@@ -111,7 +111,6 @@ function showTasks(projectL) {
   myProtoTasks = projectL.getTaskList();
 
   const myTasks = Object.values(myProtoTasks);
-  // const nameId = activeProject.getTaskId() + 1;
 
   domShowTasks(myTasks);
 }
