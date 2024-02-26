@@ -152,7 +152,7 @@ function addProjectForm() {
   addElementContainer.appendChild(projectForm);
 
   const labelProject = document.createElement("label");
-  labelProject.textContent = "Project's name";
+  labelProject.textContent = "Please, add project's name:";
   labelProject.setAttribute("id", "labelProject");
 
   const nameProject = document.createElement("input");
@@ -164,7 +164,7 @@ function addProjectForm() {
 
   const addButton = document.createElement("button");
   addButton.setAttribute("id", "buttonProjectForm");
-  addButton.textContent = "ADD";
+  addButton.textContent = "OK";
   addButton.addEventListener("click", clickAddProject, false);
 
   projectForm.appendChild(addButton);

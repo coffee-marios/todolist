@@ -89,7 +89,7 @@ function addTaskForm() {
   // Name the Task
   const elementNameTask = document.createElement("div");
   const labelTask = document.createElement("label");
-  labelTask.textContent = "Name the new task";
+  labelTask.textContent = "Please, add a new task:";
   labelTask.setAttribute("for", "newTask");
 
   const nameTask = document.createElement("input");

@@ -151,8 +151,9 @@ const myTasks = document.createElement("div");
 myTasks.classList.add("tasks");
 myTasks.setAttribute("id", "myTasksID");
 
-const myTasksTitle = document.createElement("span");
+const myTasksTitle = document.createElement("p");
 myTasksTitle.innerText = "TASKS";
+myTasksTitle.setAttribute("id", "tasksTitle");
 
 const addTask = document.createElement("button");
 addTask.classList.add("addTask");

@@ -49,9 +49,9 @@ function setCompleted(event, buttonCompletion) {
   let { completed } = event;
   completed = !completed;
   if (completed == false) {
-    buttonCompletion.textContent = "Open";
+    buttonCompletion.textContent = "Close";
   } else {
-    buttonCompletion.textContent = "Closed";
+    buttonCompletion.textContent = "Open";
   }
 
   activeProject.endTask(chosenTask, completed);
@@ -122,24 +122,26 @@ function domShowTasks(myTasks) {
     myContainer.appendChild(newTask);
 
     // New title
-    const newTitle = document.createElement("p");
+    const newTitle = document.createElement("span");
     newTitle.textContent = eachTask.name;
-
+    newTitle.classList.add("titleTask");
     newTask.appendChild(newTitle);
 
     // New extras (date, priority)
     const newExtras = document.createElement("div");
-
+    newExtras.classList.add("taskDatePriority");
     // New date
     if (eachTask.date !== "") {
       const newDueDate = document.createElement("span");
       newDueDate.textContent = eachTask.date;
+      newDueDate.classList.add("taskDate");
       newExtras.appendChild(newDueDate);
     }
 
     // New priority
     const newPriority = document.createElement("span");
-    newPriority.textContent = `PRIORITY: ${eachTask.priority}`;
+    newPriority.textContent = `priority: ${eachTask.priority}`;
+    newPriority.classList.add("taskPriority");
     newExtras.appendChild(newPriority);
 
     newTask.appendChild(newExtras);
@@ -167,7 +169,7 @@ function domShowTasks(myTasks) {
 
     // Completed
     const completed = document.createElement("button");
-    completed.textContent = "Open";
+    completed.textContent = "Close";
     completed.addEventListener(
       "click",
       () => {
@@ -177,7 +179,7 @@ function domShowTasks(myTasks) {
     );
     if (eachTask["completed"]) {
       newTask.classList.add("taskCompleted");
-      completed.textContent = "Closed";
+      completed.textContent = "Open";
     }
 
     newSetting.appendChild(completed);
@@ -220,22 +222,29 @@ function renderProjects() {
 
   myProjects.appendChild(addProjectForm());
 
+  const myProjectsHeader = document.createElement("div");
+
+  myProjectsHeader.setAttribute("id", "projectsHeader");
+  myProjects.appendChild(myProjectsHeader);
+
   const myProjectsTitle = document.createElement("p");
   myProjectsTitle.innerText = "PROJECTS";
 
-  myProjects.appendChild(myProjectsTitle);
+  myProjectsTitle.setAttribute("id", "projectsTitle");
 
-  const listProjects = document.createElement("div");
-  listProjects.setAttribute("id", "listProjects");
-
-  myProjects.appendChild(listProjects);
+  myProjectsHeader.appendChild(myProjectsTitle);
 
   const addProject = document.createElement("button");
   addProject.setAttribute("id", "startProjectButton");
   addProject.innerText = "+";
   addProject.addEventListener("click", addProjectFunction);
 
-  myProjects.appendChild(addProject);
+  myProjectsHeader.appendChild(addProject);
+
+  const listProjects = document.createElement("div");
+  listProjects.setAttribute("id", "listProjects");
+
+  myProjects.appendChild(listProjects);
 
   return myProjects;
 }
