@@ -228,7 +228,7 @@ function renderProjects() {
   myProjects.appendChild(myProjectsHeader);
 
   const myProjectsTitle = document.createElement("p");
-  myProjectsTitle.innerText = "PROJECTS";
+  myProjectsTitle.textContent = "PROJECTS";
 
   myProjectsTitle.setAttribute("id", "projectsTitle");
 
@@ -238,7 +238,6 @@ function renderProjects() {
   addProject.setAttribute("id", "startProjectButton");
   addProject.innerText = "+";
   addProject.addEventListener("click", addProjectFunction);
-
   myProjectsHeader.appendChild(addProject);
 
   const listProjects = document.createElement("div");

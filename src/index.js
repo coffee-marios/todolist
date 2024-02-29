@@ -123,7 +123,7 @@ function myHeader() {
   const element = document.createElement("header");
 
   element.classList.add("headerPage");
-  element.innerHTML = "TO DO LIST";
+  element.textContent = "TO DO LIST";
 
   return element;
 }

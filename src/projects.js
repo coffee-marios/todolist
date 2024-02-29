@@ -137,9 +137,6 @@ function clickAddProject(event) {
     }
 
     appendProject(newTitle, newProject);
-    // } else {
-    //   newProject = myProjectMethods(newProjectEmpty);
-    // }
   }
 }
 
@@ -173,6 +170,9 @@ function addProjectForm() {
 
 function addProjectFunction() {
   document.getElementById("addProjectDiv").style.display = "block";
+  document.getElementById("inputProject").placeholder =
+    "No project without a name";
+  document.getElementById("inputProject").value = "";
 }
 
 const createNewId = () => {

@@ -1182,6 +1182,7 @@ body {
 #addTaskForm {
     background-color: goldenrod;
     margin: 8px;
+    padding: 7px;
 }
 
 label[for="newTask"] {

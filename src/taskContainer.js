@@ -36,6 +36,8 @@ function clickEditTask(event) {
 
 function clickAddTask() {
   document.getElementById("addTaskDiv").style.display = "block";
+  document.getElementById("newTask").placeholder = "No task without a name";
+  document.getElementById("newTask").value = "";
 }
 
 function formAddTaskMethod() {
@@ -94,7 +96,7 @@ function addTaskForm() {
 
   const nameTask = document.createElement("input");
   nameTask.setAttribute("id", "newTask");
-  nameTask.value = "Name the task";
+  // nameTask.value = "Name the task";
   nameTask.type = "text";
   nameTask.name = "name";
 
