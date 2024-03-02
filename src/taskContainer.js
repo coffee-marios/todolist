@@ -3,8 +3,14 @@ import { editTaskForm } from "./forms.js";
 import { domShowTasks } from "./projectsDom.js";
 import { storageAvailable } from "./storage.js";
 
-function clickEditTask(event) {
+function clickEditTask(event, edit_element) {
   // it displays the form for editing
+
+  // define where it will appear
+
+  const rect = edit_element.getBoundingClientRect();
+  const y_axis = edit_element.offsetTop;
+  console.log("event", edit_element, y_axis);
 
   setChosenTask(event);
 
@@ -30,8 +36,10 @@ function clickEditTask(event) {
       oldPriority[i].checked = true;
     }
   }
-
+  let y_wr = y_axis + "px";
+  editTaskDiv.style.top = y_wr;
   editTaskDiv.style.display = "block";
+  console.log("event", edit_element, y_wr);
 }
 
 function clickAddTask() {

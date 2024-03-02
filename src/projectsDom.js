@@ -188,10 +188,11 @@ function domShowTasks(myTasks) {
     const newEdit = document.createElement("button");
     newEdit.classList.add("buttonEditTask");
     newEdit.textContent = "Edit";
+
     newEdit.addEventListener(
       "click",
       () => {
-        clickEditTask(eachTask);
+        clickEditTask(eachTask, newTitle);
       },
       false
     );
