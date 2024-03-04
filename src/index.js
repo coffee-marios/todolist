@@ -11,6 +11,7 @@ import {
 import { clickAddTask, addTaskForm } from "./taskContainer.js";
 import { editTaskForm } from "./forms.js";
 import { storageAvailable } from "./storage.js";
+import { dateTaskOne, dateTaskTwo, dateTaskThree } from "./dates.js";
 
 let stateUser;
 
@@ -52,8 +53,13 @@ if (!storageAvailable("localStorage")) {
 }
 
 if (!storageAvailable("localStorage") | (stateUser == null)) {
-  sampleProjectOne.addTask("Read a 90 book", "3/3/2024", "LOW", "ss");
-  sampleProjectOne.addTask("Read An Empty 0 House");
+  sampleProjectOne.addTask(
+    "Read a new book",
+    dateTaskOne,
+    "LOW",
+    "I need to take comments"
+  );
+  sampleProjectOne.addTask("Read An Empty 0 House", dateTaskTwo);
 }
 
 if (storageAvailable("localStorage") && stateUser == null) {
@@ -90,7 +96,7 @@ if (!storageAvailable("localStorage")) {
 }
 
 if (!storageAvailable("localStorage") | (stateUser == null)) {
-  sampleProjectTwo.addTask("Read a great book", "3d3", "HIGH", "sas");
+  sampleProjectTwo.addTask("Read a great book", dateTaskThree, "HIGH", "sas");
 }
 
 if (storageAvailable("localStorage") && stateUser == null) {
