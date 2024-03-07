@@ -36,8 +36,8 @@ if (myMonth <= 7) {
   yearThirdTask += 1;
 }
 
-let dateTaskOne = dayFirstTask + "/" + monthFirstTask + "/" + yearFistTask;
-let dateTaskTwo = daySecondTask + "/" + monthSecondTask + "/" + yearSecondTask;
-let dateTaskThree = dayThirdTask + "/" + monthThirdTask + "/" + yearThirdTask;
+let dateTaskOne = monthFirstTask + "/" + dayFirstTask + "/" + yearFistTask;
+let dateTaskTwo = monthSecondTask + "/" + daySecondTask + "/" + yearSecondTask;
+let dateTaskThree = monthThirdTask + "/" + dayThirdTask + "/" + yearThirdTask;
 
 export { dateTaskOne, dateTaskTwo, dateTaskThree };

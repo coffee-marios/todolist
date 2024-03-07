@@ -9,6 +9,15 @@ function submitEditTask() {
   // Edited data (the data that we submit as corrections)
   const formEdited = document.getElementById("editTaskForm");
   const taskDataEdit = getFormDataTask(formEdited);
+  if (taskDataEdit[0]["date"] !== "") {
+    let setDate = new Date(taskDataEdit[0]["date"]);
+    let newDay = setDate.getDate();
+    let newMonth = setDate.getMonth() + 1;
+    let newYear = setDate.getFullYear();
+    let newDate = newMonth + " " + newDay + " " + newYear;
+    console.log("task", newDate);
+    taskDataEdit[0]["date"] = newDate;
+  }
 
   // Modify the data
   activeProject.modifyTask(chosenTask, taskDataEdit[0]);

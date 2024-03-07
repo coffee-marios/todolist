@@ -59,7 +59,7 @@ if (!storageAvailable("localStorage") | (stateUser == null)) {
     "LOW",
     "I need to take comments"
   );
-  sampleProjectOne.addTask("Read An Empty 0 House", dateTaskTwo);
+  sampleProjectOne.addTask("Visit an empty house", dateTaskTwo);
 }
 
 if (storageAvailable("localStorage") && stateUser == null) {
@@ -96,7 +96,12 @@ if (!storageAvailable("localStorage")) {
 }
 
 if (!storageAvailable("localStorage") | (stateUser == null)) {
-  sampleProjectTwo.addTask("Read a great book", dateTaskThree, "HIGH", "sas");
+  sampleProjectTwo.addTask(
+    "Read a great book",
+    dateTaskThree,
+    "HIGH",
+    "This is a comment."
+  );
 }
 
 if (storageAvailable("localStorage") && stateUser == null) {

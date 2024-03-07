@@ -85,7 +85,7 @@ function myProjectMethods(myProject) {
       this.taskList[idTask] = newTask;
       this.taskList[idTask]["nameId"] = idTask;
     },
-    addTask: function (name, date = "02/mm/yy", priority = "LOW", notes = "") {
+    addTask: function (name, date = "mm-dd-yy", priority = "LOW", notes = "") {
       let taskId = assignTaskId();
 
       let nameIdTask = "task" + taskId;
@@ -93,7 +93,20 @@ function myProjectMethods(myProject) {
 
       internalTask["nameId"] = nameIdTask;
       internalTask["name"] = name;
-      internalTask["date"] = date;
+
+      // Date has to appear in the form mm/dd/year
+
+      if (date !== "mm-dd-yy" && date !== "") {
+        let objectDate = new Date(date);
+        let myYear = objectDate.getFullYear();
+        let myMonth = objectDate.getMonth() + 1;
+        let myDay = objectDate.getDate();
+        let dateTask = myMonth + "/" + myDay + "/" + myYear;
+        internalTask["date"] = dateTask;
+      } else {
+        internalTask["date"] = "";
+      }
+
       internalTask["priority"] = priority;
       internalTask["notes"] = notes;
       internalTask["completed"] = false;

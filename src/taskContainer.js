@@ -7,10 +7,7 @@ function clickEditTask(event, edit_element) {
   // it displays the form for editing
 
   // define where it will appear
-
-  const rect = edit_element.getBoundingClientRect();
   const y_axis = edit_element.offsetTop;
-  console.log("event", edit_element, y_axis);
 
   setChosenTask(event);
 
@@ -24,8 +21,18 @@ function clickEditTask(event, edit_element) {
   let oldTask = editForm.elements["editTask"];
   let oldDate = editForm.elements["dueDateEdit"];
 
+  // Insert the appropriate values to the form
   oldTask.value = name;
-  oldDate.value = date;
+
+  if (date !== "") {
+    console.log(date, typeof date, event);
+    let re = /-/gi;
+    let dateN = date.replace(re, " ");
+    let setDate = new Date(dateN);
+    let fixedDay = setDate.getDate() + 1;
+    setDate.setDate(fixedDay);
+    oldDate.value = setDate.toISOString().split("T")[0];
+  }
 
   let oldNotes = editForm.elements["textAreaTaskEdit"];
   oldNotes.value = notes;
@@ -39,7 +46,6 @@ function clickEditTask(event, edit_element) {
   let y_wr = y_axis + "px";
   editTaskDiv.style.top = y_wr;
   editTaskDiv.style.display = "block";
-  console.log("event", edit_element, y_wr);
 }
 
 function clickAddTask() {
@@ -59,8 +65,11 @@ function formAddTaskMethod() {
   if (name == "") {
     return;
   }
-
+  if (date === "") {
+    console.log(true);
+  }
   activeProject.addTask(name, date, priority, notes);
+  console.log("form add", date);
 
   if (storageAvailable("localStorage")) {
     let idProject = activeProject.getProjectId();
@@ -70,6 +79,7 @@ function formAddTaskMethod() {
   let myProtoTasks = null;
   myProtoTasks = activeProject.getTaskList();
   const myTasks = Object.values(myProtoTasks);
+  console.log("show", myTasks);
   domShowTasks(myTasks);
 }
 
@@ -104,7 +114,6 @@ function addTaskForm() {
 
   const nameTask = document.createElement("input");
   nameTask.setAttribute("id", "newTask");
-  // nameTask.value = "Name the task";
   nameTask.type = "text";
   nameTask.name = "name";
 

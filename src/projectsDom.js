@@ -130,10 +130,14 @@ function domShowTasks(myTasks) {
     // New extras (date, priority)
     const newExtras = document.createElement("div");
     newExtras.classList.add("taskDatePriority");
+
     // New date
     if (eachTask.date !== "") {
       const newDueDate = document.createElement("span");
-      newDueDate.textContent = eachTask.date;
+      let eachDate = eachTask.date;
+      let re = /-|\s/gi;
+      let formatDate = eachDate.replace(re, "/");
+      newDueDate.textContent = formatDate;
       newDueDate.classList.add("taskDate");
       newExtras.appendChild(newDueDate);
     }
