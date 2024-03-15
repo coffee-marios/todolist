@@ -1294,3 +1294,15 @@ label[for="textAreaTask"] {
 .taskCompleted .buttonEditTask {
     display: none;
 }
+
+#renameProjectDiv {
+    display: none;
+    position: absolute;
+    padding: 7px;
+    background-color: #04AA6D;
+    min-width: 110%;
+}
+
+#renameProjectDiv {
+    position: absolute;
+}

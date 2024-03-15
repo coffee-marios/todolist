@@ -51,6 +51,10 @@ function myProjectMethods(myProject) {
     getProjectId: function () {
       return this.id;
     },
+    renameProject: function (newName) {
+      // (this.id = newName),
+      this.name = newName;
+    },
     getTaskId: function () {
       return this.taskId;
     },
@@ -169,6 +173,7 @@ function addProjectForm() {
   nameProject.setAttribute("id", "inputProject");
   nameProject.type = "text";
   nameProject.name = "name";
+
   projectForm.appendChild(labelProject);
   projectForm.appendChild(nameProject);
 
@@ -186,6 +191,69 @@ function addProjectFunction() {
   document.getElementById("inputProject").placeholder =
     "No project without a name";
   document.getElementById("inputProject").value = "";
+}
+
+function clickRenameProject() {
+  // Rename the project
+
+  console.log("do i?", activeProject);
+  event.preventDefault();
+
+  const myForm = document.getElementById("renameProjectForm");
+  const projectElement = document.getElementById(activeProject.getProjectId());
+  console.log(projectElement, "el");
+  console.log(activeProject, "active");
+  projectElement.textContent = myForm.name.value;
+
+  //projectElement.id = myForm.name.value;
+
+  activeProject.renameProject(myForm.name.value);
+
+  //console.log(myForm.name.value);
+  console.log(activeProject, "new");
+
+  if (storageAvailable("localStorage")) {
+    let idProject = activeProject.getProjectId();
+    localStorage.setItem(idProject, JSON.stringify(activeProject));
+  }
+
+  document.getElementById("renameProjectDiv").style.display = "none";
+}
+
+function renameProjectForm() {
+  console.log("act:", activeProject);
+  const addElementContainer = document.createElement("div");
+  addElementContainer.setAttribute("id", "renameProjectDiv");
+
+  const projectForm = document.createElement("form");
+  projectForm.setAttribute("id", "renameProjectForm");
+  addElementContainer.appendChild(projectForm);
+
+  const labelProject = document.createElement("label");
+  labelProject.m = "Please, enter project's name:";
+  labelProject.setAttribute("id", "labelProjectRename");
+
+  const nameProject = document.createElement("input");
+  nameProject.setAttribute("id", "inputProjectName");
+  nameProject.type = "text";
+  nameProject.name = "name";
+
+  projectForm.appendChild(labelProject);
+  projectForm.appendChild(nameProject);
+
+  const renameButton = document.createElement("button");
+  renameButton.setAttribute("id", "buttonProjectRename");
+  renameButton.textContent = "OK";
+  renameButton.addEventListener(
+    "click",
+    () => {
+      clickRenameProject();
+    },
+    false
+  );
+
+  projectForm.appendChild(renameButton);
+  return addElementContainer;
 }
 
 const createNewId = () => {
@@ -229,4 +297,6 @@ export {
   setActiveProject,
   createNewId,
   chosenTask,
+  clickRenameProject,
+  renameProjectForm,
 };

@@ -5,9 +5,23 @@ import {
   activeProject,
   chosenTask,
   setChosenTask,
+  renameProjectForm,
 } from "./projects.js";
 import { clickEditTask } from "./taskContainer.js";
 import { storageAvailable } from "./storage.js";
+
+function renameProject(event, project) {
+  let titleProject = document.getElementById("renameProjectDiv");
+  let inputName = document.getElementById("inputProjectName");
+  inputName.value = project.getProjectName();
+  console.log(project, event.target);
+  // define where it will appear
+  const y_axis = event.target.offsetTop - 100;
+  let y_wr = y_axis + "px";
+  console.log(y_axis);
+  titleProject.style.top = y_wr;
+  titleProject.style.display = "block";
+}
 
 function removeProject(project) {
   if (storageAvailable("localStorage")) {
@@ -75,6 +89,9 @@ function elementProject(nameProjectDom, keyProject) {
 
   newProject.addEventListener("click", () => {
     showTasks(keyProject);
+  });
+  newProject.addEventListener("dblclick", () => {
+    renameProject(event, keyProject);
   });
   projectDiv.appendChild(newProject);
 
@@ -226,6 +243,7 @@ function renderProjects() {
   myProjects.classList.add("projects");
 
   myProjects.appendChild(addProjectForm());
+  myProjects.appendChild(renameProjectForm());
 
   const myProjectsHeader = document.createElement("div");
 
